@@ -452,9 +452,9 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\Dyplom\\backend\\Workshop\\Workshop.Api.csproj",
-      "projectName": "Workshop.Api",
-      "projectPath": "D:\\Dyplom\\backend\\Workshop\\Workshop.Api.csproj",
+      "projectUniqueName": "D:\\Dyplom\\backend\\Workshop\\Workshop.csproj",
+      "projectName": "Workshop",
+      "projectPath": "D:\\Dyplom\\backend\\Workshop\\Workshop.csproj",
       "packagesPath": "C:\\Users\\Artem\\.nuget\\packages\\",
       "outputPath": "D:\\Dyplom\\backend\\Workshop\\obj\\",
       "projectStyle": "PackageReference",

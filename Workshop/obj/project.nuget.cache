@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "ShBTuioeSE0=",
+  "dgSpecHash": "uDYE0Pt+/2I=",
   "success": true,
-  "projectFilePath": "D:\\Dyplom\\backend\\Workshop\\Workshop.Api.csproj",
+  "projectFilePath": "D:\\Dyplom\\backend\\Workshop\\Workshop.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Artem\\.nuget\\packages\\microsoft.extensions.apidescription.server\\6.0.5\\microsoft.extensions.apidescription.server.6.0.5.nupkg.sha512",
     "C:\\Users\\Artem\\.nuget\\packages\\microsoft.openapi\\1.6.14\\microsoft.openapi.1.6.14.nupkg.sha512",
