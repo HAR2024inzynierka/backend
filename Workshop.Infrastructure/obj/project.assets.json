@@ -816,6 +816,16 @@
         "build": {
           "buildTransitive/netcoreapp3.1/_._": {}
         }
+      },
+      "Workshop.Core/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v8.0",
+        "compile": {
+          "bin/placeholder/Workshop.Core.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Workshop.Core.dll": {}
+        }
       }
     }
   },
@@ -2104,12 +2114,18 @@
         "system.threading.channels.nuspec",
         "useSharedDesignerContext.txt"
       ]
+    },
+    "Workshop.Core/1.0.0": {
+      "type": "project",
+      "path": "../Workshop.Core/Workshop.Core.csproj",
+      "msbuildProject": "../Workshop.Core/Workshop.Core.csproj"
     }
   },
   "projectFileDependencyGroups": {
     "net8.0": [
       "Microsoft.EntityFrameworkCore.Design >= 8.0.10",
-      "Pomelo.EntityFrameworkCore.MySql >= 8.0.2"
+      "Pomelo.EntityFrameworkCore.MySql >= 8.0.2",
+      "Workshop.Core >= 1.0.0"
     ]
   },
   "packageFolders": {
@@ -2139,7 +2155,11 @@
       "frameworks": {
         "net8.0": {
           "targetAlias": "net8.0",
-          "projectReferences": {}
+          "projectReferences": {
+            "D:\\Dyplom\\backend\\Workshop.Core\\Workshop.Core.csproj": {
+              "projectPath": "D:\\Dyplom\\backend\\Workshop.Core\\Workshop.Core.csproj"
+            }
+          }
         }
       },
       "warningProperties": {
