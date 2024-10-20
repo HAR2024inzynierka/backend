@@ -1,21 +1,24 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using System.Security.Cryptography;
-using System.Text;
 using Workshop.Core.Entities;
 using Workshop.DTOs;
 using Workshop.Infrastructure.Repositories;
+using Workshop.Core.Interfaces;
 
 namespace Workshop.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class UsersController : ControllerBase
+    public class RegisterController : ControllerBase
     {
         private readonly IUserRepository _userRepository;
-        public UsersController(IUserRepository userRepository)
+        private readonly IPasswordHasherService _passwordHasherService;
+
+        public RegisterController(IUserRepository userRepository, IPasswordHasherService passwordHasherService)
         {
             _userRepository = userRepository;
+            _passwordHasherService = passwordHasherService;
         }
+
         [HttpPost("register")]
         public async Task<IActionResult> Register(RegisterUserDto registerUserDto)
         {
@@ -28,19 +31,11 @@ namespace Workshop.Controllers
             {
                 Login = registerUserDto.Login,
                 Email = registerUserDto.Email,
-                PasswordHash = HashPassword(registerUserDto.Password)
+                PasswordHash = _passwordHasherService.HashPassword(registerUserDto.Password)
             };
 
             await _userRepository.AddAsync(user);
             return Ok("User registered successfully.");
         }
-
-        private string HashPassword(string password)
-        {
-            using var sha256 = SHA256.Create();
-            var bytes = sha256.ComputeHash(Encoding.UTF8.GetBytes(password));
-            return Convert.ToBase64String(bytes);
-        }
-
     }
 }

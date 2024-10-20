@@ -1,8 +1,24 @@
 [
   {
-    "ContainingType": "Workshop.Controllers.UsersController",
+    "ContainingType": "Workshop.Controllers.AuthController",
+    "Method": "Login",
+    "RelativePath": "api/Auth/login",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "loginUserDto",
+        "Type": "Workshop.DTOs.LoginUserDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Workshop.Controllers.RegisterController",
     "Method": "Register",
-    "RelativePath": "api/Users/register",
+    "RelativePath": "api/Register/register",
     "HttpMethod": "POST",
     "IsController": true,
     "Order": 0,

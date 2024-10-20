@@ -113,3 +113,17 @@ D:\Dyplom\backend\Workshop\bin\Debug\net8.0\Workshop.Core.dll
 D:\Dyplom\backend\Workshop\bin\Debug\net8.0\Workshop.Infrastructure.dll
 D:\Dyplom\backend\Workshop\bin\Debug\net8.0\Workshop.Infrastructure.pdb
 D:\Dyplom\backend\Workshop\bin\Debug\net8.0\Workshop.Core.pdb
+D:\Dyplom\backend\Workshop\bin\Debug\net8.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
+D:\Dyplom\backend\Workshop\bin\Debug\net8.0\Microsoft.AspNetCore.Cryptography.Internal.dll
+D:\Dyplom\backend\Workshop\bin\Debug\net8.0\Microsoft.AspNetCore.Cryptography.KeyDerivation.dll
+D:\Dyplom\backend\Workshop\bin\Debug\net8.0\Microsoft.AspNetCore.Identity.EntityFrameworkCore.dll
+D:\Dyplom\backend\Workshop\bin\Debug\net8.0\Microsoft.Bcl.TimeProvider.dll
+D:\Dyplom\backend\Workshop\bin\Debug\net8.0\Microsoft.Extensions.Identity.Core.dll
+D:\Dyplom\backend\Workshop\bin\Debug\net8.0\Microsoft.Extensions.Identity.Stores.dll
+D:\Dyplom\backend\Workshop\bin\Debug\net8.0\Microsoft.IdentityModel.Abstractions.dll
+D:\Dyplom\backend\Workshop\bin\Debug\net8.0\Microsoft.IdentityModel.JsonWebTokens.dll
+D:\Dyplom\backend\Workshop\bin\Debug\net8.0\Microsoft.IdentityModel.Logging.dll
+D:\Dyplom\backend\Workshop\bin\Debug\net8.0\Microsoft.IdentityModel.Protocols.dll
+D:\Dyplom\backend\Workshop\bin\Debug\net8.0\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
+D:\Dyplom\backend\Workshop\bin\Debug\net8.0\Microsoft.IdentityModel.Tokens.dll
+D:\Dyplom\backend\Workshop\bin\Debug\net8.0\System.IdentityModel.Tokens.Jwt.dll

@@ -1,9 +1,11 @@
-﻿namespace Workshop.DTOs
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace Workshop.DTOs
 {
     public class RegisterUserDto
     {
-        public string Login { get; set; }
-        public string Email { get; set; }
-        public string Password { get; set; }
+        [Required] public string Login { get; set; }
+        [Required] public string Email { get; set; }
+        [Required] public string Password { get; set; }
     }
 }

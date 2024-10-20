@@ -11,7 +11,7 @@ namespace Workshop.Core.Entities
         [Column("Haslo")]
         public string PasswordHash { get; set; }
         [Column("NumerTelefonu")]
-        public string PhoneNumber { get; set; }
+        public string? PhoneNumber { get; set; }
         [Column("Rola")]
         public int Role {  get; set; }
     }

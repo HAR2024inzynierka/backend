@@ -12,3 +12,4 @@ D:\Dyplom\backend\Workshop.Core\obj\Debug\net8.0\refint\Workshop.Core.dll
 D:\Dyplom\backend\Workshop.Core\obj\Debug\net8.0\Workshop.Core.pdb
 D:\Dyplom\backend\Workshop.Core\obj\Debug\net8.0\Workshop.Core.genruntimeconfig.cache
 D:\Dyplom\backend\Workshop.Core\obj\Debug\net8.0\ref\Workshop.Core.dll
+D:\Dyplom\backend\Workshop.Core\obj\Debug\net8.0\Workshop.Core.csproj.AssemblyReference.cache
