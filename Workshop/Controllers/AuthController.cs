@@ -19,6 +19,11 @@ namespace Workshop.Controllers
         public async Task<IActionResult> Login([FromBody] LoginUserDto loginUserDto)
         {
 
+            if(!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
             try
             {
                 var token = await _authService.AuthenticateAsync(loginUserDto.Email, loginUserDto.Password);

@@ -1,7 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Workshop.Core.Entities;
 using Workshop.DTOs;
-using Workshop.Infrastructure.Repositories;
 using Workshop.Core.Interfaces;
 
 namespace Workshop.Controllers
@@ -20,6 +18,12 @@ namespace Workshop.Controllers
         [HttpPost("register")]
         public async Task<IActionResult> Register([FromBody] RegisterUserDto registerUserDto)
         {
+
+            if(!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
             try
             {
                 var result = await _registerService.RegisterUserAsync(registerUserDto.Login, registerUserDto.Email, registerUserDto.Password);
