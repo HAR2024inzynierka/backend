@@ -32,7 +32,7 @@ namespace Workshop.Core.Services
                 _passwordHasherService.VerifyHashedPassword(user.PasswordHash, password) != PasswordVerificationResult.Success
                 )
             {
-                return null;
+                throw new Exception("Invalid email or password");
             }
 
             return GenerateJwtToken(user);

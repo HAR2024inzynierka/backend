@@ -18,14 +18,16 @@ namespace Workshop.Controllers
         [HttpPost("login")]
         public IActionResult Login([FromBody] LoginUserDto loginUserDto)
         {
-            var token = _authService.Authenticate(loginUserDto.Email, loginUserDto.Password);
 
-            if(token == null)
+            try
             {
-                return Unauthorized(new {message = "Invalid email or password."});
+                var token = _authService.Authenticate(loginUserDto.Email, loginUserDto.Password);
+                return Ok(new { token });
             }
-
-            return Ok(new {token});
+            catch (Exception ex)
+            {
+                return BadRequest(new { message = ex.Message });
+            }
         }
     }
 }   
