@@ -16,12 +16,12 @@ namespace Workshop.Controllers
         }
 
         [HttpPost("login")]
-        public IActionResult Login([FromBody] LoginUserDto loginUserDto)
+        public async Task<IActionResult> Login([FromBody] LoginUserDto loginUserDto)
         {
 
             try
             {
-                var token = _authService.Authenticate(loginUserDto.Email, loginUserDto.Password);
+                var token = await _authService.AuthenticateAsync(loginUserDto.Email, loginUserDto.Password);
                 return Ok(new { token });
             }
             catch (Exception ex)

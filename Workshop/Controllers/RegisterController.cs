@@ -10,32 +10,25 @@ namespace Workshop.Controllers
     [Route("api/[controller]")]
     public class RegisterController : ControllerBase
     {
-        private readonly IUserRepository _userRepository;
-        private readonly IPasswordHasherService _passwordHasherService;
+        private readonly IRegisterService _registerService;
 
-        public RegisterController(IUserRepository userRepository, IPasswordHasherService passwordHasherService)
+        public RegisterController(IRegisterService registerService)
         {
-            _userRepository = userRepository;
-            _passwordHasherService = passwordHasherService;
+            _registerService = registerService;
         }
 
         [HttpPost("register")]
-        public async Task<IActionResult> Register(RegisterUserDto registerUserDto)
+        public async Task<IActionResult> Register([FromBody] RegisterUserDto registerUserDto)
         {
-            if (await _userRepository.EmailExistsAsync(registerUserDto.Email))
+            try
             {
-                return BadRequest("Email is already in use.");
+                var result = await _registerService.RegisterUserAsync(registerUserDto.Login, registerUserDto.Email, registerUserDto.Password);
+                return Ok(result);
             }
-
-            var user = new User
+            catch (Exception ex)
             {
-                Login = registerUserDto.Login,
-                Email = registerUserDto.Email,
-                PasswordHash = _passwordHasherService.HashPassword(registerUserDto.Password)
-            };
-
-            await _userRepository.AddAsync(user);
-            return Ok("User registered successfully.");
+                return BadRequest(new { message = ex.Message });
+            }
         }
     }
 }

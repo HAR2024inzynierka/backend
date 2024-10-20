@@ -24,7 +24,7 @@ namespace Workshop.Core.Services
             _passwordHasherService = passwordHasherService;
         }
 
-        public async Task<string> Authenticate(string email, string password)
+        public async Task<string> AuthenticateAsync(string email, string password)
         {
             var user = await _userRepository.GetByEmailAsync(email);
             if (

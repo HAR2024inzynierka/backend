@@ -4,6 +4,6 @@ namespace Workshop.Core.Interfaces
 {
     public interface IAuthService
     {
-        Task<string> Authenticate(string email, string password);
+        Task<string> AuthenticateAsync(string email, string password);
     }
 }
