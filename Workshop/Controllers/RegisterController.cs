@@ -26,8 +26,8 @@ namespace Workshop.Controllers
 
             try
             {
-                var result = await _registerService.RegisterUserAsync(registerUserDto.Login, registerUserDto.Email, registerUserDto.Password);
-                return Ok(result);
+                var token = await _registerService.RegisterUserAsync(registerUserDto.Login, registerUserDto.Email, registerUserDto.Password);
+                return Ok(new {token});
             }
             catch (Exception ex)
             {

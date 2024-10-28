@@ -8,7 +8,6 @@ using Workshop.Core.Interfaces;
 using Workshop.Core.Entities;
 using Microsoft.AspNetCore.Identity;
 
-
 namespace Workshop.Core.Services
 {
     public class AuthService : IAuthService

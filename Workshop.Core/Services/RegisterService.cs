@@ -4,7 +4,9 @@ using System.Security.Claims;
 using System.Text;
 using Workshop.Core.Entities;
 using Workshop.Core.Interfaces;
+using Microsoft.Extensions.Configuration;
 using Workshop.Infrastructure.Repositories;
+using Microsoft.AspNetCore.Identity;
 
 namespace Workshop.Core.Services
 {
@@ -12,17 +14,18 @@ namespace Workshop.Core.Services
     {
         private readonly IUserRepository _userRepository;
         private readonly string _jwtSecret;
-        private readonly IPasswordHasherService _passwordHahserService;
+        private readonly IPasswordHasherService _passwordHasherService;
 
-        public RegisterService(IUserRepository userRepository, IPasswordHasherService passwordHasherService)
+        public RegisterService(IUserRepository userRepository, IConfiguration configuration, IPasswordHasherService passwordHasherService)
         {
             _userRepository = userRepository;
-            _passwordHahserService = passwordHasherService;
+            _jwtSecret = configuration["Jwt:Secret"];
+            _passwordHasherService = passwordHasherService;
         }
 
         public async Task<string> RegisterUserAsync(string login, string email, string password)
         {
-            if(await _userRepository.EmailExistsAsync(email))
+            if (await _userRepository.EmailExistsAsync(email))
             {
                 throw new Exception("Email is already in use.");
             }
@@ -31,7 +34,7 @@ namespace Workshop.Core.Services
             {
                 Login = login,
                 Email = email,
-                PasswordHash = _passwordHahserService.HashPassword(password)
+                PasswordHash = _passwordHasherService.HashPassword(password)
             };
 
             await _userRepository.AddAsync(user);

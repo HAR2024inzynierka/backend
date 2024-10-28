@@ -12,7 +12,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddDbContext<WorkshopDbContext>(options =>
     options.UseMySql(
-        builder.Configuration.GetConnectionString("DefaultCOnnection"),
+        builder.Configuration.GetConnectionString("DefaultConnection"),
         ServerVersion.AutoDetect(builder.Configuration.GetConnectionString("DefaultConnection"))
     )
 );
