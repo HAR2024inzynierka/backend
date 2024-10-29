@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Workshop.Core.Entities
 {
@@ -16,6 +11,7 @@ namespace Workshop.Core.Entities
         public string Model { get; set; } = string.Empty;
         [Column("NrRejestracujny")]
         public string RegistrationNumber { get; set; } = string.Empty;
+        [Column("Uzytkownicy_id")]
         public int UserId { get; set; }
     }
 }

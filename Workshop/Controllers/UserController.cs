@@ -2,6 +2,7 @@
 using Workshop.Core.Interfaces;
 using System.Threading.Tasks;
 using Workshop.Core.Entities;
+using Workshop.DTOs;
 
 namespace Workshop.Controllers
 {
@@ -28,17 +29,30 @@ namespace Workshop.Controllers
             return Ok(user);
         }
 
-        [HttpPost("{userId}/vehicles")]
-        public async Task<IActionResult> AddVehicles(int userId, [FromBody] Vehicle vehicle)
+        [HttpGet("{userId}/vehicles")]
+        public async Task<IActionResult> GetAllVehicles(int userId)
         {
-            if (vehicle == null)
+            var vehicles = await _userService.GetAllVehiclesAsync(userId);
+            return Ok(vehicles);
+        }
+
+        [HttpPost("{userId}/vehicle")]
+        public async Task<IActionResult> AddVehicle(int userId, [FromBody] VehicleDto vehicleDto)
+        {
+            if (!ModelState.IsValid)
             {
-                return BadRequest();
+                return BadRequest(ModelState);
             }
 
-            vehicle.UserId = userId;
-            await _userService.AddVehicleAsync(vehicle);
-            return CreatedAtAction(nameof(AddVehicles), new { id = vehicle.Id }, vehicle);
+            try
+            {
+                await _userService.AddVehicleAsync(userId, vehicleDto.Brand, vehicleDto.Model, vehicleDto.RegistrationNumber);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { message = ex.Message });
+            }
         }
     }
 }

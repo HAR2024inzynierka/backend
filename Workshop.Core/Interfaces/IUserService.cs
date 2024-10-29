@@ -10,8 +10,10 @@ namespace Workshop.Core.Interfaces
 {
     public interface IUserService
     {
-        public Task<User> GetUserByIdAsync(int userId);
+        Task<User> GetUserByIdAsync(int userId);
 
-        public Task AddVehicleAsync(Vehicle vehicle);
+        Task<List<Vehicle>> GetAllVehiclesAsync(int userId);
+
+        Task AddVehicleAsync(int userId, string brand, string model, string registrationNumber);
     }
 }
