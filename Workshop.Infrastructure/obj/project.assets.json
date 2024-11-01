@@ -2549,35 +2549,32 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Artem\\.nuget\\packages\\": {}
+    "/Users/anna/.nuget/packages/": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\Dyplom\\backend\\Workshop.Infrastructure\\Workshop.Infrastructure.csproj",
+      "projectUniqueName": "/Users/anna/Desktop/backend/Workshop.Infrastructure/Workshop.Infrastructure.csproj",
       "projectName": "Workshop.Infrastructure",
-      "projectPath": "D:\\Dyplom\\backend\\Workshop.Infrastructure\\Workshop.Infrastructure.csproj",
-      "packagesPath": "C:\\Users\\Artem\\.nuget\\packages\\",
-      "outputPath": "D:\\Dyplom\\backend\\Workshop.Infrastructure\\obj\\",
+      "projectPath": "/Users/anna/Desktop/backend/Workshop.Infrastructure/Workshop.Infrastructure.csproj",
+      "packagesPath": "/Users/anna/.nuget/packages/",
+      "outputPath": "/Users/anna/Desktop/backend/Workshop.Infrastructure/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\Artem\\AppData\\Roaming\\NuGet\\NuGet.Config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        "/Users/anna/.nuget/NuGet/NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "net8.0"
       ],
       "sources": {
-        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-        "C:\\Program Files\\dotnet\\library-packs": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
         "net8.0": {
           "targetAlias": "net8.0",
           "projectReferences": {
-            "D:\\Dyplom\\backend\\Workshop.Core\\Workshop.Core.csproj": {
-              "projectPath": "D:\\Dyplom\\backend\\Workshop.Core\\Workshop.Core.csproj"
+            "/Users/anna/Desktop/backend/Workshop.Core/Workshop.Core.csproj": {
+              "projectPath": "/Users/anna/Desktop/backend/Workshop.Core/Workshop.Core.csproj"
             }
           }
         }
@@ -2624,7 +2621,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.403/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "/Users/anna/.dotnet/sdk/8.0.401/PortableRuntimeIdentifierGraph.json"
       }
     }
   }
