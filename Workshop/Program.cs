@@ -6,6 +6,8 @@ using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using Workshop.Core.Interfaces;
 using Workshop.Core.Services;
+using Workshop.Middleware;
+using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -32,6 +34,38 @@ builder.Services.AddAuthentication(options =>
         ValidateIssuerSigningKey = true,
         IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(builder.Configuration["Jwt:Secret"]))
     };
+});
+
+// Конфигурация Swagger
+builder.Services.AddSwaggerGen(c =>
+{
+    c.SwaggerDoc("v1", new OpenApiInfo { Title = "My API", Version = "v1" });
+
+    // Добавляем поддержку JWT в Swagger
+    c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+    {
+        Name = "Authorization",
+        Type = SecuritySchemeType.Http,
+        Scheme = "bearer",
+        BearerFormat = "JWT",
+        In = ParameterLocation.Header,
+        Description = "Введите JWT-токен для авторизации."
+    });
+
+    c.AddSecurityRequirement(new OpenApiSecurityRequirement
+    {
+        {
+            new OpenApiSecurityScheme
+            {
+                Reference = new OpenApiReference
+                {
+                    Type = ReferenceType.SecurityScheme,
+                    Id = "Bearer"
+                }
+            },
+            Array.Empty<string>()
+        }
+    });
 });
 
 builder.Services.AddControllers();
@@ -65,9 +99,18 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+
 app.UseCors();
+app.UseRouting();
+
 app.UseAuthentication();
 app.UseAuthorization();
+
+app.UseWhen(context => context.Request.Path.StartsWithSegments("/api/admin"),
+    appBuiler =>
+    {
+        appBuiler.UseMiddleware<AdminAuthorizationMiddleware>();
+    });
 
 app.MapControllers();
 

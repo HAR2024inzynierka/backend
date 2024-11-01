@@ -7,7 +7,6 @@ namespace Workshop.Infrastructure.Repositories
     {
         Task AddAsync(Vehicle vehicle);
         Task<bool> RegistrationNumberExistsAsync(string registrationNumber);
-
         Task<List<Vehicle>> GetAllVehiclesOfUserAsync(int userId);
     }
 }

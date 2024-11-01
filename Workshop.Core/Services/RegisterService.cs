@@ -50,9 +50,10 @@ namespace Workshop.Core.Services
                 Subject = new ClaimsIdentity(new[]
                 {
                     new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
-                    new Claim(ClaimTypes.Email, user.Email)
+                    new Claim(ClaimTypes.Email, user.Email),
+                    new Claim(ClaimTypes.Role, user.Role.ToString())
                 }),
-                Expires = DateTime.UtcNow.AddDays(1),
+                Expires = DateTime.UtcNow.AddHours(3),
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
 
             };
