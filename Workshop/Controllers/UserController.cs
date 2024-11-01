@@ -3,11 +3,13 @@ using Workshop.Core.Interfaces;
 using System.Threading.Tasks;
 using Workshop.Core.Entities;
 using Workshop.DTOs;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Workshop.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
+    [Authorize]
     public class UserController : ControllerBase
     {
         private readonly IUserService _userService;
