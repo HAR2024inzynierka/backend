@@ -10,6 +10,32 @@
     "ReturnTypes": []
   },
   {
+    "ContainingType": "Workshop.Controllers.AdminController",
+    "Method": "AddAutoRepairShop",
+    "RelativePath": "api/admin/workshop",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "autoRepairShopDto",
+        "Type": "Workshop.DTOs.AutoRepairShopDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Workshop.Controllers.AdminController",
+    "Method": "GetAllAutoRepairShops",
+    "RelativePath": "api/admin/workshops",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "Workshop.Controllers.AuthController",
     "Method": "Login",
     "RelativePath": "api/Auth/login",

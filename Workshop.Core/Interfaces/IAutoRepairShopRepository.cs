@@ -2,8 +2,10 @@
 
 namespace Workshop.Core.Interfaces
 {
-    internal interface IAutoRepairShopRepository
+    public interface IAutoRepairShopRepository
     {
         Task AddAsync(AutoRepairShop autoRapairShop);
-    }
+        Task<List<AutoRepairShop>> GetAllAutoRepairShopsAsync();
+
+	}
 }
