@@ -70,13 +70,13 @@
   {
     "ContainingType": "Workshop.Controllers.UserController",
     "Method": "GetUser",
-    "RelativePath": "api/User/{id}",
+    "RelativePath": "api/User/{userId}",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
     "Parameters": [
       {
-        "Name": "id",
+        "Name": "userId",
         "Type": "System.Int32",
         "IsRequired": true
       }

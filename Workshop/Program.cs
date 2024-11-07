@@ -8,6 +8,7 @@ using Workshop.Core.Interfaces;
 using Workshop.Core.Services;
 using Workshop.Middleware;
 using Microsoft.OpenApi.Models;
+using Workshop.Filters;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -80,6 +81,9 @@ builder.Services.AddScoped<IRegisterService, RegisterService>();
 builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IAdminService, AdminService>();
+
+builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+builder.Services.AddScoped<AuthorizeUserFilter>();
 
 
 builder.Services.AddCors(options =>

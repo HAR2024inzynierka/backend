@@ -4,12 +4,14 @@ using System.Threading.Tasks;
 using Workshop.Core.Entities;
 using Workshop.DTOs;
 using Microsoft.AspNetCore.Authorization;
+using Workshop.Filters;
 
 namespace Workshop.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
     [Authorize]
+    [ServiceFilter(typeof(AuthorizeUserFilter))]
     public class UserController : ControllerBase
     {
         private readonly IUserService _userService;
@@ -19,10 +21,10 @@ namespace Workshop.Controllers
             _userService = userService;
         }
 
-        [HttpGet("{id}")]
-        public async Task<IActionResult> GetUser(int id)
+        [HttpGet("{userId}")]
+        public async Task<IActionResult> GetUser(int userId)
         {
-            var user = await _userService.GetUserByIdAsync(id);
+            var user = await _userService.GetUserByIdAsync(userId);
             if (user == null)
             {
                 return NotFound();
