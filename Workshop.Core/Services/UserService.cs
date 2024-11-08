@@ -29,10 +29,10 @@ namespace Workshop.Core.Services
         {
             Console.WriteLine($"Dodawanie pojazdu: {vehicle.Brand} {vehicle.Model} z numerem rejestracyjnym: {vehicle.RegistrationNumber} dla użytkownika: {vehicle.UserId}");
 
-            if (await _vehicleRepository.RegistrationNumberExistsAsync(vehicle.RegistrationNumber))
+            if (await _vehicleRepository.VINExistsAsync(vehicle.VIN))
             {
-                Console.WriteLine($"Błąd: Pojazd z numerem rejestracyjnym {vehicle.RegistrationNumber} już istnieje.");
-                throw new Exception("A vehicle with the same registration number already exists");
+                Console.WriteLine($"Błąd: Pojazd z VIN numerem {vehicle.VIN} już istnieje.");
+                throw new Exception("A vehicle with the same VIN number already exists");
             }
 
             await _vehicleRepository.AddAsync(vehicle);

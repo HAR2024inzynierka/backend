@@ -19,9 +19,9 @@ namespace Workshop.Infrastructure.Repositories
             await _context.SaveChangesAsync();
         }
 
-        public async Task<bool> RegistrationNumberExistsAsync(string registrationNumber)
+        public async Task<bool> VINExistsAsync(string VIN)
         {
-            return await _context.Vehicles.AnyAsync(u => u.RegistrationNumber == registrationNumber);
+            return await _context.Vehicles.AnyAsync(u => u.VIN == VIN);
         }
 
         public async Task<List<Vehicle>> GetAllVehiclesOfUserAsync(int userId)
