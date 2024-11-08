@@ -5,6 +5,7 @@ using Workshop.Core.Entities;
 using Workshop.DTOs;
 using Microsoft.AspNetCore.Authorization;
 using Workshop.Filters;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Workshop.Controllers
 {
@@ -50,7 +51,18 @@ namespace Workshop.Controllers
 
             try
             {
-                await _userService.AddVehicleAsync(userId, vehicleDto.Brand, vehicleDto.Model, vehicleDto.RegistrationNumber);
+                var vehicle = new Vehicle
+                {
+                    Brand = vehicleDto.Brand,
+                    Model = vehicleDto.Model,
+                    RegistrationNumber = vehicleDto.RegistrationNumber,
+                    Capacity = vehicleDto.Capacity,
+                    Power = vehicleDto.Power,
+                    VIN = vehicleDto.VIN,
+                    ProductionYear = vehicleDto.ProductionYear,
+                    UserId = userId
+                };
+                await _userService.AddVehicleAsync(vehicle);
                 return Ok();
             }
             catch (Exception ex)

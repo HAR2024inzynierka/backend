@@ -25,23 +25,15 @@ namespace Workshop.Core.Services
             return await _vehicleRepository.GetAllVehiclesOfUserAsync(userId);
         }
         
-        public async Task AddVehicleAsync(int userId, string brand, string model, string registrationNumber)
+        public async Task AddVehicleAsync(Vehicle vehicle)
         {
-            Console.WriteLine($"Dodawanie pojazdu: {brand} {model} z numerem rejestracyjnym: {registrationNumber} dla użytkownika: {userId}");
+            Console.WriteLine($"Dodawanie pojazdu: {vehicle.Brand} {vehicle.Model} z numerem rejestracyjnym: {vehicle.RegistrationNumber} dla użytkownika: {vehicle.UserId}");
 
-            if (await _vehicleRepository.RegistrationNumberExistsAsync(registrationNumber))
+            if (await _vehicleRepository.RegistrationNumberExistsAsync(vehicle.RegistrationNumber))
             {
-                Console.WriteLine($"Błąd: Pojazd z numerem rejestracyjnym {registrationNumber} już istnieje.");
+                Console.WriteLine($"Błąd: Pojazd z numerem rejestracyjnym {vehicle.RegistrationNumber} już istnieje.");
                 throw new Exception("A vehicle with the same registration number already exists");
             }
-
-            var vehicle = new Vehicle
-            {
-                Brand = brand,
-                Model = model,
-                RegistrationNumber = registrationNumber,
-                UserId = userId
-            };
 
             await _vehicleRepository.AddAsync(vehicle);
             Console.WriteLine($"Pojazd dodany pomyślnie: {vehicle.Id}");

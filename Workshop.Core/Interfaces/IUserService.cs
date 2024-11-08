@@ -14,6 +14,6 @@ namespace Workshop.Core.Interfaces
 
         Task<List<Vehicle>> GetAllVehiclesAsync(int userId);
 
-        Task AddVehicleAsync(int userId, string brand, string model, string registrationNumber);
+        Task AddVehicleAsync(Vehicle vehicle);
     }
 }
