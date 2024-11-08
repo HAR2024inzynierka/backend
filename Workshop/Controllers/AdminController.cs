@@ -25,13 +25,6 @@ namespace Workshop.Controllers
             return Ok(users);
         }
 
-		[HttpGet("workshops")]
-		public async Task<IActionResult> GetAllAutoRepairShops()
-		{
-			var autoRepairShops = await _adminService.GetAllAutoRepairShopsAsync();
-			return Ok(autoRepairShops);
-		}
-
 		[HttpPost("workshop")]
         public async Task<IActionResult> AddAutoRepairShop([FromBody] AutoRepairShopDto autoRepairShopDto)
         {

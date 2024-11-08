@@ -24,10 +24,6 @@ namespace Workshop.Core.Services
 		{
 			return await _userRepository.GetAllUsersAsync();
 		}
-		public async Task<List<AutoRepairShop>> GetAllAutoRepairShopsAsync()
-		{
-			return await _autoRepairShopRepository.GetAllAutoRepairShopsAsync();
-		}
 		public async Task AddAutoRepairShopAsync(string email, string address, string phoneNumber)
 		{
 			var autoRepairShop = new AutoRepairShop
