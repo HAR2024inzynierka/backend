@@ -70,5 +70,49 @@ namespace Workshop.Controllers
                 return BadRequest(new { message = ex.Message });
             }
         }
+
+        [HttpPut("{userId}/vehicle/{vehicleId}")]
+        public async Task<IActionResult> UpdateVehicle(int vehicleId, [FromBody] VehicleDto vehicleDto)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            try
+            {
+                var vehicle = new Vehicle
+                {
+                    Id = vehicleId,
+                    Brand = vehicleDto.Brand,
+                    Model = vehicleDto.Model,
+                    RegistrationNumber = vehicleDto.RegistrationNumber,
+                    Capacity = vehicleDto.Capacity,
+                    Power = vehicleDto.Power,
+                    VIN = vehicleDto.VIN,
+                    ProductionYear = vehicleDto.ProductionYear
+                };
+                await _userService.UpdateVehicleAsync(vehicle);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { message = ex.Message });
+            }
+        }
+
+        [HttpDelete("{userId}/vehicle/{vehicleId}")]
+        public async Task<IActionResult> DeleteVehicle(int vehicleId)
+        {
+            try
+            {
+				await _userService.DeleteVehicleAsync(vehicleId);
+				return Ok();
+			}
+            catch (Exception ex)
+            {
+				return BadRequest(new { message = ex.Message });
+			}
+            
+        }
     }
 }

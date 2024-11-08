@@ -39,5 +39,34 @@ namespace Workshop.Core.Services
             Console.WriteLine($"Pojazd dodany pomyślnie: {vehicle.Id}");
         }
 
+        public async Task UpdateVehicleAsync(Vehicle updateVehicle)
+        {
+            var vehicle = await _vehicleRepository.GetVehicleByIdAsync(updateVehicle.Id);
+            if(vehicle == null)
+            {
+                throw new Exception("Vehicle not found");
+            }
+
+            vehicle.Brand = updateVehicle.Brand;
+            vehicle.Model = updateVehicle.Model;
+            vehicle.RegistrationNumber = updateVehicle.RegistrationNumber;
+            vehicle.Capacity = updateVehicle.Capacity;
+            vehicle.Power = updateVehicle.Power;
+            vehicle.VIN = updateVehicle.VIN;
+            vehicle.ProductionYear = updateVehicle.ProductionYear;
+
+            await _vehicleRepository.UpdateAsync(vehicle);
+        }
+
+        public async Task DeleteVehicleAsync(int vehicleId)
+        {
+            var vehicle  = await _vehicleRepository.GetVehicleByIdAsync(vehicleId);
+            if (vehicle == null)
+            {
+                throw new Exception("Vehicle not found");
+            }
+            await _vehicleRepository.DeleteAsync(vehicle);
+        }
+
     }
 }
