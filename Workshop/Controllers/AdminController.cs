@@ -1,12 +1,11 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Workshop.Infrastructure.Repositories;
 using Workshop.DTOs;
 using Workshop.Core.Interfaces;
-using Workshop.Core.Entities;
-using Workshop.Core.Services;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Workshop.Controllers
 {
+    [Authorize]
     [ApiController]
     [Route("api/admin")]
     public class AdminController : ControllerBase

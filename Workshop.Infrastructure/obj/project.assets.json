@@ -2554,11 +2554,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\dyplom\\backend\\Workshop.Infrastructure\\Workshop.Infrastructure.csproj",
+      "projectUniqueName": "D:\\Dyplom\\backend\\Workshop.Infrastructure\\Workshop.Infrastructure.csproj",
       "projectName": "Workshop.Infrastructure",
-      "projectPath": "C:\\dyplom\\backend\\Workshop.Infrastructure\\Workshop.Infrastructure.csproj",
+      "projectPath": "D:\\Dyplom\\backend\\Workshop.Infrastructure\\Workshop.Infrastructure.csproj",
       "packagesPath": "C:\\Users\\Artem\\.nuget\\packages\\",
-      "outputPath": "C:\\dyplom\\backend\\Workshop.Infrastructure\\obj\\",
+      "outputPath": "D:\\Dyplom\\backend\\Workshop.Infrastructure\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\Artem\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -2576,8 +2576,8 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "projectReferences": {
-            "C:\\dyplom\\backend\\Workshop.Core\\Workshop.Core.csproj": {
-              "projectPath": "C:\\dyplom\\backend\\Workshop.Core\\Workshop.Core.csproj"
+            "D:\\Dyplom\\backend\\Workshop.Core\\Workshop.Core.csproj": {
+              "projectPath": "D:\\Dyplom\\backend\\Workshop.Core\\Workshop.Core.csproj"
             }
           }
         }

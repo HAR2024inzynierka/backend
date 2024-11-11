@@ -1,11 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Workshop.Core.Interfaces;
-using System.Threading.Tasks;
 using Workshop.Core.Entities;
 using Workshop.DTOs;
 using Microsoft.AspNetCore.Authorization;
 using Workshop.Filters;
-using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Workshop.Controllers
 {

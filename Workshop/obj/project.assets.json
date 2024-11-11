@@ -3125,11 +3125,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\dyplom\\backend\\Workshop\\Workshop.csproj",
+      "projectUniqueName": "D:\\Dyplom\\backend\\Workshop\\Workshop.csproj",
       "projectName": "Workshop",
-      "projectPath": "C:\\dyplom\\backend\\Workshop\\Workshop.csproj",
+      "projectPath": "D:\\Dyplom\\backend\\Workshop\\Workshop.csproj",
       "packagesPath": "C:\\Users\\Artem\\.nuget\\packages\\",
-      "outputPath": "C:\\dyplom\\backend\\Workshop\\obj\\",
+      "outputPath": "D:\\Dyplom\\backend\\Workshop\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\Artem\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -3147,11 +3147,11 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "projectReferences": {
-            "C:\\dyplom\\backend\\Workshop.Core\\Workshop.Core.csproj": {
-              "projectPath": "C:\\dyplom\\backend\\Workshop.Core\\Workshop.Core.csproj"
+            "D:\\Dyplom\\backend\\Workshop.Core\\Workshop.Core.csproj": {
+              "projectPath": "D:\\Dyplom\\backend\\Workshop.Core\\Workshop.Core.csproj"
             },
-            "C:\\dyplom\\backend\\Workshop.Infrastructure\\Workshop.Infrastructure.csproj": {
-              "projectPath": "C:\\dyplom\\backend\\Workshop.Infrastructure\\Workshop.Infrastructure.csproj"
+            "D:\\Dyplom\\backend\\Workshop.Infrastructure\\Workshop.Infrastructure.csproj": {
+              "projectPath": "D:\\Dyplom\\backend\\Workshop.Infrastructure\\Workshop.Infrastructure.csproj"
             }
           }
         }

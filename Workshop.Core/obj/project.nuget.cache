@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "F93Ed3fhNnc=",
+  "dgSpecHash": "WM11THbyhkg=",
   "success": true,
-  "projectFilePath": "C:\\dyplom\\backend\\Workshop.Core\\Workshop.Core.csproj",
+  "projectFilePath": "D:\\Dyplom\\backend\\Workshop.Core\\Workshop.Core.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Artem\\.nuget\\packages\\humanizer.core\\2.14.1\\humanizer.core.2.14.1.nupkg.sha512",
     "C:\\Users\\Artem\\.nuget\\packages\\microsoft.aspnetcore.cryptography.internal\\8.0.10\\microsoft.aspnetcore.cryptography.internal.8.0.10.nupkg.sha512",

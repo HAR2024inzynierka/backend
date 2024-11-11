@@ -1,5 +1,37 @@
 [
   {
+    "ContainingType": "Workshop.Controllers.FavourController",
+    "Method": "AddFavour",
+    "RelativePath": "api/admin/Favour/add",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "favourDto",
+        "Type": "Workshop.DTOs.AddFavourDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Workshop.Controllers.TermController",
+    "Method": "AddTerm",
+    "RelativePath": "api/admin/Term/add",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "termDto",
+        "Type": "Workshop.DTOs.AddTermDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "Workshop.Controllers.AdminController",
     "Method": "GetAllUsers",
     "RelativePath": "api/admin/users",
@@ -39,6 +71,48 @@
         "IsRequired": true
       }
     ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Workshop.Controllers.AutoRepairShopController",
+    "Method": "GetFavoursByAutoServiceId",
+    "RelativePath": "api/AutoRepairShop/{autoServiceId}/favours",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "autoServiceId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Workshop.Controllers.AutoRepairShopController",
+    "Method": "GetTermsByAutoServiceId",
+    "RelativePath": "api/AutoRepairShop/{autoServiceId}/terms",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "autoServiceId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Workshop.Controllers.AutoRepairShopController",
+    "Method": "GetAllAutoRepairShops",
+    "RelativePath": "api/AutoRepairShop/workshops",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
     "ReturnTypes": []
   },
   {
@@ -155,16 +229,6 @@
         "IsRequired": true
       }
     ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "Workshop.Controllers.AutoRepairShopController",
-    "Method": "GetAllAutoRepairShops",
-    "RelativePath": "workshops",
-    "HttpMethod": "GET",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [],
     "ReturnTypes": []
   }
 ]
