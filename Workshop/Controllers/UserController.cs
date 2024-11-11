@@ -4,6 +4,7 @@ using Workshop.Core.Entities;
 using Workshop.DTOs;
 using Microsoft.AspNetCore.Authorization;
 using Workshop.Filters;
+using Pomelo.EntityFrameworkCore.MySql.Storage.Internal;
 
 namespace Workshop.Controllers
 {
@@ -14,10 +15,12 @@ namespace Workshop.Controllers
     public class UserController : ControllerBase
     {
         private readonly IUserService _userService;
+        private readonly IRecordService _recordService;
 
-        public UserController(IUserService userService)
+        public UserController(IUserService userService, IRecordService recordService)
         {
             _userService = userService;
+            _recordService = recordService;
         }
 
         [HttpGet("{userId}")]
@@ -111,6 +114,13 @@ namespace Workshop.Controllers
 				return BadRequest(new { message = ex.Message });
 			}
             
+        }
+
+        [HttpGet("{userId}/records")]
+        public async Task<IActionResult> GetUserRecords(int userId)
+        {
+            var records = await _recordService.GetRecordsByUserIdAsync(userId);
+            return Ok(records);
         }
     }
 }

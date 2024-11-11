@@ -12,5 +12,6 @@ namespace Workshop.Infrastructure.Data
         public DbSet<AutoRepairShop> AutoRepairShops { get; set; }
         public DbSet<Favour> Favours { get; set; }
         public DbSet<Term> Terms { get; set; }
+        public DbSet<Record> Records { get; set; }
     }
 }

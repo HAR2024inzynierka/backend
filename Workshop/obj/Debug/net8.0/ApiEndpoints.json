@@ -107,6 +107,22 @@
   },
   {
     "ContainingType": "Workshop.Controllers.AutoRepairShopController",
+    "Method": "AddRecord",
+    "RelativePath": "api/AutoRepairShop/add-record",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "recordDto",
+        "Type": "Workshop.DTOs.AddRecordDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Workshop.Controllers.AutoRepairShopController",
     "Method": "GetAllAutoRepairShops",
     "RelativePath": "api/AutoRepairShop/workshops",
     "HttpMethod": "GET",
@@ -135,6 +151,22 @@
     "ContainingType": "Workshop.Controllers.UserController",
     "Method": "GetUser",
     "RelativePath": "api/User/{userId}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "userId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Workshop.Controllers.UserController",
+    "Method": "GetUserRecords",
+    "RelativePath": "api/User/{userId}/records",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,

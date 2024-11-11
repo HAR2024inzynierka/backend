@@ -78,6 +78,7 @@ builder.Services.AddScoped<IVehicleRepository, VehicleRepository>();
 builder.Services.AddScoped<IAutoRepairShopRepository, AutoRepairShopRepository>();
 builder.Services.AddScoped<IFavourRepository, FavourRepository>();
 builder.Services.AddScoped<ITermRepository, TermRepository>();
+builder.Services.AddScoped<IRecordRepository, RecordRepository>();
 builder.Services.AddScoped<IPasswordHasherService, PasswordHasherService>();
 builder.Services.AddScoped<IRegisterService, RegisterService>();
 builder.Services.AddScoped<IAuthService, AuthService>();
@@ -86,6 +87,7 @@ builder.Services.AddScoped<IAdminService, AdminService>();
 builder.Services.AddScoped<IAutoRepairShopService, AutoRepairShopService>();
 builder.Services.AddScoped<IFavourService, FavourService>();
 builder.Services.AddScoped<ITermService, TermService>();
+builder.Services.AddScoped<IRecordService, RecordService>();
 
 builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 builder.Services.AddScoped<AuthorizeUserFilter>();
