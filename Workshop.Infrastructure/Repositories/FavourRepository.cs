@@ -13,9 +13,26 @@ namespace Workshop.Infrastructure.Repositories
 			_context = context;
 		}
 		
+		public async Task<Favour> GetFavourByIdAsync(int id)
+		{
+			return await _context.Favours.FindAsync(id);	
+		}
+
 		public async Task AddFavourAsync(Favour favour)
 		{
 			await _context.Favours.AddAsync(favour);
+			await _context.SaveChangesAsync();
+		}
+
+		public async Task UpdateFavourAsync(Favour favour)
+		{
+			_context.Favours.Update(favour);
+			await _context.SaveChangesAsync();
+		}
+
+		public async Task DeleteFavourAsync(Favour favour)
+		{
+			_context.Favours.Remove(favour);
 			await _context.SaveChangesAsync();
 		}
 

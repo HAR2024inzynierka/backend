@@ -1,6 +1,59 @@
 [
   {
     "ContainingType": "Workshop.Controllers.FavourController",
+    "Method": "GetFavourByIdAsync",
+    "RelativePath": "api/admin/Favour/{favourId}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "favourId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Workshop.Controllers.FavourController",
+    "Method": "UpdateFavour",
+    "RelativePath": "api/admin/Favour/{favourId}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "favourId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "favourDto",
+        "Type": "Workshop.DTOs.AddFavourDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Workshop.Controllers.FavourController",
+    "Method": "DeleteFavour",
+    "RelativePath": "api/admin/Favour/{favourId}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "favourId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Workshop.Controllers.FavourController",
     "Method": "AddFavour",
     "RelativePath": "api/admin/Favour/add",
     "HttpMethod": "POST",

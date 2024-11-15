@@ -9,7 +9,10 @@ namespace Workshop.Core.Interfaces
 {
 	public interface IFavourService
 	{
+		Task<Favour> GetFavourByIdAsync(int id);
 		Task AddFavourAsync(Favour favour);
+		Task UpdateFavourAsync(Favour favour);
+		Task DeleteFavourAsync(int id);
 		Task<List<Favour>> GetFavoursByAutoServiceIdAsync(int autoserviceId);
 	}
 }
