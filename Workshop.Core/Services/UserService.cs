@@ -24,6 +24,31 @@ namespace Workshop.Core.Services
         {
             return await _vehicleRepository.GetAllVehiclesOfUserAsync(userId);
         }
+
+        public async Task UpdateUserAsync(User updateUser)
+        {
+            var user = await _userRepository.GetByIdAsync(updateUser.Id);
+            if (user == null)
+            {
+                throw new Exception("User not found");
+            }
+
+            user.Login = updateUser.Login;
+            user.Email = updateUser.Email;
+            user.PhoneNumber = updateUser.PhoneNumber;
+
+            await _userRepository.UpdateAsync(user);
+        }
+        public async Task DeleteUserAsync(int userId)
+        {
+            var user = await _userRepository.GetByIdAsync(userId);
+            if (user == null)
+            {
+                throw new Exception("User not found");
+            }
+
+            await _userRepository.DeleteAsync(user);
+        }
         
         public async Task AddVehicleAsync(Vehicle vehicle)
         {

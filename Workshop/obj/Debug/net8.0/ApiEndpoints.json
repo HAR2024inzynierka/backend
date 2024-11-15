@@ -165,6 +165,43 @@
   },
   {
     "ContainingType": "Workshop.Controllers.UserController",
+    "Method": "UpdateUser",
+    "RelativePath": "api/User/{userId}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "userId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "updateUserDto",
+        "Type": "Workshop.DTOs.UpdateUserDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Workshop.Controllers.UserController",
+    "Method": "DeleteUser",
+    "RelativePath": "api/User/{userId}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "userId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Workshop.Controllers.UserController",
     "Method": "GetUserRecords",
     "RelativePath": "api/User/{userId}/records",
     "HttpMethod": "GET",

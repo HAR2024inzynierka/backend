@@ -42,6 +42,45 @@ namespace Workshop.Controllers
             return Ok(vehicles);
         }
 
+        [HttpPut("{userId}")]
+        public async Task<IActionResult> UpdateUser(int userId, [FromBody] UpdateUserDto updateUserDto)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            try
+            {
+                var user = new User
+                {
+                    Id = userId,
+                    Login = updateUserDto.Login,
+                    Email = updateUserDto.Email,
+                    PhoneNumber = updateUserDto.PhoneNumber,
+                };
+                await _userService.UpdateUserAsync(user);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { message = ex.Message });
+            }
+        }
+
+        [HttpDelete("{userId}")]
+        public async Task<IActionResult> DeleteUser(int userId)
+        {
+            try
+            {
+                await _userService.DeleteUserAsync(userId);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { message = ex.Message });
+            }
+        }
+
         [HttpPost("{userId}/vehicle")]
         public async Task<IActionResult> AddVehicle(int userId, [FromBody] VehicleDto vehicleDto)
         {

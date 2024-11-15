@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\Dyplom\\backend\\Workshop.Core\\Workshop.Core.csproj": {}
+    "C:\\dyplom\\backend\\Workshop.Core\\Workshop.Core.csproj": {}
   },
   "projects": {
-    "D:\\Dyplom\\backend\\Workshop.Core\\Workshop.Core.csproj": {
+    "C:\\dyplom\\backend\\Workshop.Core\\Workshop.Core.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Dyplom\\backend\\Workshop.Core\\Workshop.Core.csproj",
+        "projectUniqueName": "C:\\dyplom\\backend\\Workshop.Core\\Workshop.Core.csproj",
         "projectName": "Workshop.Core",
-        "projectPath": "D:\\Dyplom\\backend\\Workshop.Core\\Workshop.Core.csproj",
+        "projectPath": "C:\\dyplom\\backend\\Workshop.Core\\Workshop.Core.csproj",
         "packagesPath": "C:\\Users\\Artem\\.nuget\\packages\\",
-        "outputPath": "D:\\Dyplom\\backend\\Workshop.Core\\obj\\",
+        "outputPath": "C:\\dyplom\\backend\\Workshop.Core\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Artem\\AppData\\Roaming\\NuGet\\NuGet.Config",
