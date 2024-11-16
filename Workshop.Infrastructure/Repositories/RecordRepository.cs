@@ -18,9 +18,26 @@ namespace Workshop.Infrastructure.Repositories
 		{
 			_context = context;
 		}
+		public async Task<Record> GetRecordByIdAsync(int id)
+		{
+			return await _context.Records.FindAsync(id);
+		}
+
 		public async Task AddRecordAsync(Record record)
 		{
 			await _context.Records.AddAsync(record);
+			await _context.SaveChangesAsync();
+		}
+
+		public async Task UpdateRecordAsync(Record record)
+		{
+			_context.Records.Update(record);
+			await _context.SaveChangesAsync();
+		}
+
+		public async Task DeleteRecordAsync(Record record)
+		{
+			_context.Records.Remove(record);
 			await _context.SaveChangesAsync();
 		}
 
