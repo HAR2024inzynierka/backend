@@ -45,6 +45,9 @@ namespace Workshop.Infrastructure.Repositories
 		{
 			return await _context.Records
 				.Include(r => r.Vehicle)
+				.Include(r => r.Favour)
+					.ThenInclude(f=>f.AutoRepairShop)
+				.Include(r => r.Term)
 				.Where(r => r.Vehicle.UserId == userId).ToListAsync();
 		}
 	}

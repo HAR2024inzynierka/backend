@@ -38,7 +38,7 @@ namespace Workshop.Infrastructure.Repositories
 
 		public async Task<List<Favour>> GetFavoursByAutoServiceIdAsync(int autoserviceId)
 		{
-			return await _context.Favours.Where(f => f.AutoServiceId == autoserviceId).ToListAsync();
+			return await _context.Favours.Where(f => f.AutoRepairShopId == autoserviceId).ToListAsync();
 		}
 	}
 }

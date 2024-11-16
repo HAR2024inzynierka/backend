@@ -13,12 +13,14 @@ namespace Workshop.Core.Entities
 	{
 		public int Id { get; set; }
 		[Column("Warsztat_id")]
-		public int AutoServiceId { get; set; }
+		public int AutoRepairShopId { get; set; }
 		[Column("RodzajUslugi", TypeName="varchar(50)")]
 		public string TypeName { get; set; }
 		[Column("Opis")]
 		public string Description { get; set; } = string.Empty;
 		[Column("Koszt")]
 		public decimal Price { get; set; }
+
+		public AutoRepairShop AutoRepairShop { get; set; }
 	}
 }

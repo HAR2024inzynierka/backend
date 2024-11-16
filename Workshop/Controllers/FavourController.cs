@@ -46,7 +46,7 @@ namespace Workshop.Controllers
 					TypeName = favourDto.TypeName,
 					Description = favourDto.Description,
 					Price = favourDto.Price,
-					AutoServiceId = favourDto.AutoServiceId
+                    AutoRepairShopId = favourDto.AutoServiceId
 				};
 
 				await _favourService.AddFavourAsync(favour);

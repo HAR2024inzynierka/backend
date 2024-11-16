@@ -24,5 +24,7 @@ namespace Workshop.Core.Entities
 		public DateTime CompletionDate { get; set; }
 
 		public Vehicle Vehicle { get; set; }  // Связь с автомобилем
+		public Favour Favour { get; set; }
+		public Term Term { get; set; }
 	}
 }
