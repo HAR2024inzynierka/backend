@@ -19,7 +19,7 @@ namespace Workshop.Controllers
 		}
 
 		[HttpGet("{termId}")]
-		public async Task<IActionResult> GetTermByIdAsync(int termId)
+		public async Task<IActionResult> GetTermById(int termId)
 		{
             var term = await _termService.GetTermByIdAsync(termId);
             if (term == null)

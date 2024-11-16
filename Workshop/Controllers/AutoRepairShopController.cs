@@ -21,7 +21,19 @@ namespace Workshop.Controllers
 			_recordService = recordService;
 		}
 
-		[HttpGet("workshops")]
+        [HttpGet("{autoServiceId}")]
+        public async Task<IActionResult> GetAutoRepairShopById(int autoServiceId)
+        {
+            var autoRepairShop = await _autoRepairShopService.GetAutoRepairShopByIdAsync(autoServiceId);
+            if (autoRepairShop == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(autoRepairShop);
+        }
+
+        [HttpGet("workshops")]
 		public async Task<IActionResult> GetAllAutoRepairShops()
 		{
 			var autoRepairShops = await _autoRepairShopService.GetAllAutoRepairShopsAsync();
