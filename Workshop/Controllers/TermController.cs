@@ -1,9 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Controllers;
 using Workshop.Core.Entities;
 using Workshop.Core.Interfaces;
-using Workshop.Core.Services;
 using Workshop.DTOs;
 
 namespace Workshop.Controllers
@@ -19,6 +17,18 @@ namespace Workshop.Controllers
 		{
 			_termService = termService;
 		}
+
+		[HttpGet("{termId}")]
+		public async Task<IActionResult> GetTermByIdAsync(int termId)
+		{
+            var term = await _termService.GetTermByIdAsync(termId);
+            if (term == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(term);
+        }
 
 		[HttpPost("add")]
 		public async Task<IActionResult> AddTerm([FromBody] AddTermDto termDto)
@@ -47,5 +57,47 @@ namespace Workshop.Controllers
 			}
 		}
 
-	}
+        [HttpPut("{termId}")]
+        public async Task<IActionResult> UpdateTerm(int termId, [FromBody] AddTermDto termDto)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            try
+            {
+                var term = new Term
+                {
+                    Id = termId,
+                    StartDate = termDto.StartDate,
+                    EndDate = termDto.EndDate,
+                    Availability = termDto.Availability,
+                    AutoServiceId = termDto.AutoServiceId
+
+                };
+                await _termService.UpdateTermAsync(term);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { message = ex.Message });
+            }
+        }
+
+        [HttpDelete("{termId}")]
+        public async Task<IActionResult> DeleteTerm(int termId)
+        {
+            try
+            {
+                await _termService.DeleteTermAsync(termId);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { message = ex.Message });
+            }
+        }
+
+    }
 }

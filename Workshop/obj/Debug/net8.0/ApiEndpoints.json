@@ -70,6 +70,59 @@
   },
   {
     "ContainingType": "Workshop.Controllers.TermController",
+    "Method": "GetTermByIdAsync",
+    "RelativePath": "api/admin/Term/{termId}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "termId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Workshop.Controllers.TermController",
+    "Method": "UpdateTerm",
+    "RelativePath": "api/admin/Term/{termId}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "termId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "termDto",
+        "Type": "Workshop.DTOs.AddTermDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Workshop.Controllers.TermController",
+    "Method": "DeleteTerm",
+    "RelativePath": "api/admin/Term/{termId}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "termId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Workshop.Controllers.TermController",
     "Method": "AddTerm",
     "RelativePath": "api/admin/Term/add",
     "HttpMethod": "POST",

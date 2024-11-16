@@ -14,9 +14,26 @@ namespace Workshop.Infrastructure.Repositories
 			_context = context;
 		}
 
+		public async Task<Term> GetTermByIdAsync(int id)
+		{
+			return await _context.Terms.FindAsync(id);
+		}
+
 		public async Task AddTermAsync(Term term)
 		{
 			await _context.Terms.AddAsync(term);
+			await _context.SaveChangesAsync();
+		}
+
+		public async Task UpdateTermAsync(Term term)
+		{
+			_context.Terms.Update(term);
+			await _context.SaveChangesAsync();
+		}
+
+		public async Task DeleteTermAsync(Term term)
+		{
+			_context.Terms.Remove(term);
 			await _context.SaveChangesAsync();
 		}
 
