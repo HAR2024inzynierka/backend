@@ -6,10 +6,10 @@ namespace Workshop.Core.Entities
     public class User
     {
         public int Id { get; set; }
-        public string Login {  get; set; }
-        public string Email { get; set; }
+        public string Login { get; set; } = null!;
+        public string Email { get; set; } = string.Empty;
         [Column("Haslo")]
-        public string PasswordHash { get; set; }
+        public string PasswordHash { get; set; } = string.Empty;
         [Column("NumerTelefonu")]
         public string? PhoneNumber { get; set; }
         [Column("Rola")]

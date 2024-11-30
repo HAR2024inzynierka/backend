@@ -1,6 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore.Metadata.Conventions;
-using Microsoft.EntityFrameworkCore.Query;
-using Workshop.Core.Entities;
+﻿using Workshop.Core.Entities;
 using Workshop.Core.Interfaces;
 
 namespace Workshop.Core.Services
@@ -15,7 +13,14 @@ namespace Workshop.Core.Services
 
 		public async Task<Record> GetRecordByIdAsync(int id)
 		{
-			return await _recordRepository.GetRecordByIdAsync(id);
+			var record = await _recordRepository.GetRecordByIdAsync(id);
+
+			if (record == null)
+			{
+				throw new Exception("Record not found");
+			}
+
+            return record;
 		}
 
 		public async Task AddRecordAsync(Record record)

@@ -14,7 +14,14 @@ namespace Workshop.Core.Services
 
 		public async Task<AutoRepairShop> GetAutoRepairShopByIdAsync(int id)
 		{
-			return await _autoRepairShopRepository.GetAutoRepairShopByIdAsync(id);
+            var autoRepairShop = await _autoRepairShopRepository.GetAutoRepairShopByIdAsync(id);
+
+            if (autoRepairShop == null)
+            {
+                throw new Exception("AutoRepeirShop not found");
+            }
+
+            return autoRepairShop;
 		}
 
 

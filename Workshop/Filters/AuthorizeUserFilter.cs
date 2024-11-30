@@ -1,8 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using System.Security.Claims;
-using Microsoft.AspNetCore.Http;
-using System.Linq;
 
 namespace Workshop.Filters
 {
@@ -17,9 +15,15 @@ namespace Workshop.Filters
 
 		public void OnAuthorization(AuthorizationFilterContext context)
 		{
+			var httpContext = _httpContextAccessor.HttpContext;
+
+			if (httpContext == null) {
+				context.Result = new UnauthorizedResult();
+				return;
+			}
 
 			// Извлекаем userId из токена
-			var userIdFromToken = _httpContextAccessor.HttpContext.User
+			var userIdFromToken = httpContext.User
 				.FindFirst(ClaimTypes.NameIdentifier)?.Value;
 
 			if (string.IsNullOrEmpty(userIdFromToken))
@@ -28,7 +32,12 @@ namespace Workshop.Filters
 				return;
 			}
 
-			var userId = int.Parse(userIdFromToken);
+			if(!int.TryParse(userIdFromToken, out int userId))
+			{
+				context.Result = new BadRequestResult();
+				return;
+			}
+
 
 			// Извлекаем userId из параметра в URL (например, {id})
 			var routeDataUserId = context.RouteData.Values["userId"] as string;
@@ -39,7 +48,11 @@ namespace Workshop.Filters
 				return;
 			}
 
-			var requestedUserId = int.Parse(routeDataUserId);
+			if (!int.TryParse(routeDataUserId, out var requestedUserId))
+			{
+                context.Result = new BadRequestResult();
+                return;
+            }
 
 			// Проверяем, что userId из токена совпадает с переданным id
 			if (userId != requestedUserId)

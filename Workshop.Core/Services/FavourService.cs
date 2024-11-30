@@ -1,11 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Workshop.Core.Entities;
+﻿using Workshop.Core.Entities;
 using Workshop.Core.Interfaces;
-using Workshop.Infrastructure.Repositories;
 
 namespace Workshop.Core.Services
 {
@@ -20,7 +14,14 @@ namespace Workshop.Core.Services
 
 		public async Task<Favour> GetFavourByIdAsync(int id)
 		{
-			return await _favourRepository.GetFavourByIdAsync(id);
+			var favour = await _favourRepository.GetFavourByIdAsync(id);
+
+			if (favour == null)
+			{
+				throw new Exception("Favour not found");
+			}
+
+            return favour;
 		}
 
 		public async Task AddFavourAsync(Favour favour)

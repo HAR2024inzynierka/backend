@@ -15,7 +15,7 @@ namespace Workshop.Infrastructure.Repositories
 
         public async Task<Vehicle?> GetVehicleByIdAsync(int id)
         {
-            return await _context.Vehicles.FindAsync(id); ;
+            return await _context.Vehicles.FindAsync(id);
         }
 
         public async Task AddAsync(Vehicle vehicle)

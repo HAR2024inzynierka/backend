@@ -1,9 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Workshop.Core.Entities;
 using Workshop.Core.Interfaces;
 using Workshop.Infrastructure.Data;
@@ -18,7 +13,7 @@ namespace Workshop.Infrastructure.Repositories
 		{
 			_context = context;
 		}
-		public async Task<Record> GetRecordByIdAsync(int id)
+		public async Task<Record?> GetRecordByIdAsync(int id)
 		{
 			return await _context.Records.FindAsync(id);
 		}
@@ -46,7 +41,7 @@ namespace Workshop.Infrastructure.Repositories
 			return await _context.Records
 				.Include(r => r.Vehicle)
 				.Include(r => r.Favour)
-					.ThenInclude(f=>f.AutoRepairShop)
+					.ThenInclude(f => f.AutoRepairShop)
 				.Include(r => r.Term)
 				.Where(r => r.Vehicle.UserId == userId).ToListAsync();
 		}

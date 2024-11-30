@@ -14,7 +14,7 @@ namespace Workshop.Infrastructure.Repositories
 			_context = context;
 		}
 
-		public async Task<Term> GetTermByIdAsync(int id)
+		public async Task<Term?> GetTermByIdAsync(int id)
 		{
 			return await _context.Terms.FindAsync(id);
 		}

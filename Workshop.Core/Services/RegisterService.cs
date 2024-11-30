@@ -6,7 +6,6 @@ using Workshop.Core.Entities;
 using Workshop.Core.Interfaces;
 using Microsoft.Extensions.Configuration;
 using Workshop.Infrastructure.Repositories;
-using Microsoft.AspNetCore.Identity;
 
 namespace Workshop.Core.Services
 {
@@ -19,7 +18,7 @@ namespace Workshop.Core.Services
         public RegisterService(IUserRepository userRepository, IConfiguration configuration, IPasswordHasherService passwordHasherService)
         {
             _userRepository = userRepository;
-            _jwtSecret = configuration["Jwt:Secret"];
+            _jwtSecret = configuration["Jwt:Secret"] ?? throw new ArgumentNullException(nameof(configuration), "Jwt:Secret is missing in the configuration.");
             _passwordHasherService = passwordHasherService;
         }
 

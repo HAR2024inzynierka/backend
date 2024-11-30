@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Workshop.Core.Entities;
+﻿using Workshop.Core.Entities;
 using Workshop.Core.Interfaces;
 
 namespace Workshop.Core.Services
@@ -19,7 +14,14 @@ namespace Workshop.Core.Services
 
 		public async Task<Term> GetTermByIdAsync(int termId)
 		{
-			return await _termRepository.GetTermByIdAsync(termId);
+			var term = await _termRepository.GetTermByIdAsync(termId);
+
+			if (term == null)
+			{
+				throw new Exception("Term not found");
+			}
+
+            return term;
 		}
 		public async Task AddTermAsync(Term term)
 		{

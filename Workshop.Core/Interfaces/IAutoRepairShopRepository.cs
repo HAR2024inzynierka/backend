@@ -4,7 +4,7 @@ namespace Workshop.Core.Interfaces
 {
     public interface IAutoRepairShopRepository
     {
-        Task<AutoRepairShop> GetAutoRepairShopByIdAsync(int id);
+        Task<AutoRepairShop?> GetAutoRepairShopByIdAsync(int id);
         Task AddAsync(AutoRepairShop autoRapairShop);
         Task UpdateAsync(AutoRepairShop autoRapairShop);
         Task DeleteAsync(AutoRepairShop autoRapairShop);

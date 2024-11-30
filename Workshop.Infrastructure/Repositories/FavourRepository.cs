@@ -13,7 +13,7 @@ namespace Workshop.Infrastructure.Repositories
 			_context = context;
 		}
 		
-		public async Task<Favour> GetFavourByIdAsync(int id)
+		public async Task<Favour?> GetFavourByIdAsync(int id)
 		{
 			return await _context.Favours.FindAsync(id);	
 		}

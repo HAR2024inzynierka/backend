@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace Workshop.Core.Entities
 {
@@ -15,12 +11,11 @@ namespace Workshop.Core.Entities
 		[Column("Warsztat_id")]
 		public int AutoRepairShopId { get; set; }
 		[Column("RodzajUslugi", TypeName="varchar(50)")]
-		public string TypeName { get; set; }
+		public required string TypeName { get; set; }
 		[Column("Opis")]
 		public string Description { get; set; } = string.Empty;
 		[Column("Koszt")]
 		public decimal Price { get; set; }
-
-		public AutoRepairShop AutoRepairShop { get; set; }
-	}
+		public AutoRepairShop AutoRepairShop { get; set; } = null!;
+    }
 }

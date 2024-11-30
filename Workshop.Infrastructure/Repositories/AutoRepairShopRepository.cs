@@ -14,7 +14,7 @@ namespace Workshop.Infrastructure.Repositories
             _context = context;
         }
 
-        public async Task<AutoRepairShop> GetAutoRepairShopByIdAsync(int id)
+        public async Task<AutoRepairShop?> GetAutoRepairShopByIdAsync(int id)
         {
             return await _context.AutoRepairShops.FindAsync(id);
         }

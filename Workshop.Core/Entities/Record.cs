@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Workshop.Core.Entities
 {
@@ -21,10 +15,10 @@ namespace Workshop.Core.Entities
 		[Column("DataZapisu")]
 		public DateTime RecordDate {  get; set; }
 		[Column("DataUkonczenia")]
-		public DateTime CompletionDate { get; set; }
+		public DateTime? CompletionDate { get; set; }
 
-		public Vehicle Vehicle { get; set; }  // Связь с автомобилем
-		public Favour Favour { get; set; }
-		public Term Term { get; set; }
-	}
+		public Vehicle Vehicle { get; set; } = null!;  // Связь с автомобилем
+		public Favour Favour { get; set; } = null!;
+        public Term Term { get; set; } = null!;
+    }
 }
