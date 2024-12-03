@@ -13,5 +13,8 @@ namespace Workshop.Infrastructure.Data
         public DbSet<Favour> Favours { get; set; }
         public DbSet<Term> Terms { get; set; }
         public DbSet<Record> Records { get; set; }
+        public DbSet<Post> Posts { get; set; }
+        public DbSet<Like> Likes { get; set; }
+        public DbSet<Comment> Comments { get; set; }
     }
 }
