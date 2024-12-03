@@ -69,9 +69,8 @@ namespace Workshop.Controllers
 					VehicleId = recordDto.VehicleId,
 					FavourId = recordDto.FavourId,
 					TermId = recordDto.TermId,
-					RecordDate = recordDto.RecordDate,
-					CompletionDate = recordDto.CompletionDate
-				};
+                    RecordDate = DateTime.Now
+                };
 
 				await _recordService.AddRecordAsync(record);
 				return Ok("Record added successfully.");

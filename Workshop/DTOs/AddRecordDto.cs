@@ -13,8 +13,7 @@ namespace Workshop.DTOs
         [Required(ErrorMessage = "TermId is required.")]
         [Range(1, int.MaxValue, ErrorMessage = "TermId must be a positive integer.")]
         public int TermId { get; set; }
-        [Required(ErrorMessage = "RecordDate is required.")]
-        public DateTime RecordDate { get; set; }
-        public DateTime? CompletionDate { get; set; }
+        //[Required(ErrorMessage = "RecordDate is required.")]
+        //public DateTime RecordDate { get; set; }
 	}
 }

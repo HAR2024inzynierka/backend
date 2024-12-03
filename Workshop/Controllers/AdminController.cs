@@ -3,7 +3,6 @@ using Workshop.DTOs;
 using Workshop.Core.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Workshop.Core.Entities;
-using Workshop.Core.Services;
 
 namespace Workshop.Controllers
 {

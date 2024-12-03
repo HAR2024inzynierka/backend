@@ -161,5 +161,12 @@ namespace Workshop.Controllers
             var records = await _recordService.GetRecordsByUserIdAsync(userId);
             return Ok(records);
         }
+
+        [HttpDelete("{userId}/records/{recordId}")]
+        public async Task<IActionResult> DeleteRecord(int recordId)
+        {
+            await _recordService.DeleteRecordAsync(recordId);
+            return Ok();
+        }
     }
 }

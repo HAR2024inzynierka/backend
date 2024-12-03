@@ -43,7 +43,19 @@ namespace Workshop.Infrastructure.Repositories
 				.Include(r => r.Favour)
 					.ThenInclude(f => f.AutoRepairShop)
 				.Include(r => r.Term)
-				.Where(r => r.Vehicle.UserId == userId).ToListAsync();
+				.Where(r => r.Vehicle.UserId == userId)
+				.ToListAsync();
 		}
+
+		public async Task<List<Record>> GetUncompletedRecordsAsync()
+		{
+			return await _context.Records
+                .Include(r => r.Vehicle)
+                .Include(r => r.Favour)
+                    .ThenInclude(f => f.AutoRepairShop)
+                .Include(r => r.Term)
+                .Where(r => r.CompletionDate == null)
+                .ToListAsync();
+        }
 	}
 }

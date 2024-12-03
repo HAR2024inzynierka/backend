@@ -60,5 +60,29 @@ namespace Workshop.Core.Services
 		{
 			return await _recordRepository.GetRecordsByUserIdAsync(userId);
 		}
-	}
+
+		public async Task<List<Record>> GetUncompletedRecordsAsync()
+		{
+			return await _recordRepository.GetUncompletedRecordsAsync();
+		}
+
+		public async Task CompleteRecordAsync(int recordId)
+		{
+			var record = await _recordRepository.GetRecordByIdAsync(recordId);
+
+			if(record == null)
+			{
+				throw new Exception("Record not found");
+			}
+			else if(record.CompletionDate != null)
+			{
+				throw new Exception("Record has already been completed");
+			}
+
+			record.CompletionDate = DateTime.Now;
+
+			await _recordRepository.UpdateRecordAsync(record);
+		}
+
+    }
 }

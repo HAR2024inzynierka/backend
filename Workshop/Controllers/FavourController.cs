@@ -3,7 +3,6 @@ using Microsoft.AspNetCore.Mvc;
 using Workshop.Core.Interfaces;
 using Workshop.DTOs;
 using Workshop.Core.Entities;
-using Workshop.Core.Services;
 
 namespace Workshop.Controllers
 {

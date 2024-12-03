@@ -14,5 +14,7 @@ namespace Workshop.Core.Interfaces
 		Task UpdateRecordAsync(Record record);
 		Task DeleteRecordAsync(int id);
 		Task<List<Record>> GetRecordsByUserIdAsync(int userId);
-	}
+        Task<List<Record>> GetUncompletedRecordsAsync();
+		Task CompleteRecordAsync(int recordId);
+    }
 }
