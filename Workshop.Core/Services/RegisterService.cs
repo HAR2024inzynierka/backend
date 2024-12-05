@@ -1,10 +1,5 @@
-﻿using Microsoft.IdentityModel.Tokens;
-using System.IdentityModel.Tokens.Jwt;
-using System.Security.Claims;
-using System.Text;
-using Workshop.Core.Entities;
+﻿using Workshop.Core.Entities;
 using Workshop.Core.Interfaces;
-using Microsoft.Extensions.Configuration;
 using Workshop.Infrastructure.Repositories;
 
 namespace Workshop.Core.Services
@@ -15,19 +10,19 @@ namespace Workshop.Core.Services
     public class RegisterService : IRegisterService
     {
         private readonly IUserRepository _userRepository;
-        private readonly string _jwtSecret;
+        private readonly IGenerateJwtTokenService _generateJwtTokenService;
         private readonly IPasswordHasherService _passwordHasherService;
 
         /// <summary>
         /// Konstruktor serwisu, który przyjmuje zależności.
         /// </summary>
         /// <param name="userRepository">Repozytorium użytkowników, używane do dodawania nowych użytkowników i sprawdzania istniejących.</param>
-        /// <param name="configuration">Konfiguracja aplikacji, w której znajduje się sekret JWT.</param>
+        /// <param name="generateJwtTokenService">Serwis odpowiedzialny za generowanie tokenów.</param>
         /// <param name="passwordHasherService">Serwis odpowiedzialny za haszowanie haseł użytkowników.</param>
-        public RegisterService(IUserRepository userRepository, IConfiguration configuration, IPasswordHasherService passwordHasherService)
+        public RegisterService(IUserRepository userRepository, IGenerateJwtTokenService generateJwtTokenService, IPasswordHasherService passwordHasherService)
         {
             _userRepository = userRepository;
-            _jwtSecret = configuration["Jwt:Secret"] ?? throw new ArgumentNullException(nameof(configuration), "Jwt:Secret is missing in the configuration.");
+            _generateJwtTokenService = generateJwtTokenService;
             _passwordHasherService = passwordHasherService;
         }
 
@@ -48,27 +43,7 @@ namespace Workshop.Core.Services
             };
 
             await _userRepository.AddAsync(user);
-            return GenerateJwtToken(user);
-        }
-
-        public string GenerateJwtToken(User user) // wynesti metod v otdelnij servic i iz authService tozhe
-        {
-            var tokenHandler = new JwtSecurityTokenHandler();
-            var key = Encoding.ASCII.GetBytes(_jwtSecret);
-            var tokenDescriptor = new SecurityTokenDescriptor
-            {
-                Subject = new ClaimsIdentity(new[]
-                {
-                    new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
-                    new Claim(ClaimTypes.Email, user.Email),
-                    new Claim(ClaimTypes.Role, user.Role.ToString())
-                }),
-                Expires = DateTime.UtcNow.AddHours(3),
-                SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
-
-            };
-            var token = tokenHandler.CreateToken(tokenDescriptor);
-            return tokenHandler.WriteToken(token);
+            return _generateJwtTokenService.GenerateJwtToken(user);
         }
     }
 }
