@@ -3,10 +3,18 @@ using Workshop.Core.Interfaces;
 
 namespace Workshop.Core.Services
 {
-	public class RecordService : IRecordService
+    /// <summary>
+    /// Serwis zarządzający rekordami wizyt w warsztacie.
+    /// </summary>
+    public class RecordService : IRecordService
 	{
 		private readonly IRecordRepository _recordRepository;
-		public RecordService(IRecordRepository recordRepository)
+
+        /// <summary>
+        /// Konstruktor serwisu RecordService.
+        /// </summary>
+        /// <param name="recordRepository">Repozytorium operujące na danych rekordów</param>
+        public RecordService(IRecordRepository recordRepository)
 		{
 			_recordRepository = recordRepository;
 		}
@@ -15,7 +23,8 @@ namespace Workshop.Core.Services
 		{
 			var record = await _recordRepository.GetRecordByIdAsync(id);
 
-			if (record == null)
+            // Jeśli rekord nie istnieje, rzucamy wyjątek
+            if (record == null)
 			{
 				throw new Exception("Record not found");
 			}
@@ -31,11 +40,14 @@ namespace Workshop.Core.Services
 		public async Task UpdateRecordAsync(Record updateRecord)
 		{
             var record = await _recordRepository.GetRecordByIdAsync(updateRecord.Id);
+
+            // Jeśli rekord nie istnieje, rzucamy wyjątek
             if (record == null)
             {
                 throw new Exception("Record not found");
             }
 
+            // Aktualizujemy dane rekordu
             record.VehicleId = updateRecord.VehicleId;
 			record.FavourId = updateRecord.FavourId;
 			record.TermId = updateRecord.TermId;
@@ -48,6 +60,8 @@ namespace Workshop.Core.Services
         public async Task DeleteRecordAsync(int recordId)
         {
             var record = await _recordRepository.GetRecordByIdAsync(recordId);
+
+            // Jeśli rekord nie istnieje, rzucamy wyjątek
             if (record == null)
             {
                 throw new Exception("Record not found");
@@ -70,16 +84,19 @@ namespace Workshop.Core.Services
 		{
 			var record = await _recordRepository.GetRecordByIdAsync(recordId);
 
-			if(record == null)
+            // Jeśli rekord nie istnieje, rzucamy wyjątek
+            if (record == null)
 			{
 				throw new Exception("Record not found");
 			}
-			else if(record.CompletionDate != null)
+            // Jeśli rekord ma już datę zakończenia, rzucamy wyjątek, bo nie można go zakończyć ponownie
+            else if (record.CompletionDate != null)
 			{
 				throw new Exception("Record has already been completed");
 			}
 
-			record.CompletionDate = DateTime.Now;
+            // Ustawiamy datę zakończenia wizyty
+            record.CompletionDate = DateTime.Now;
 
 			await _recordRepository.UpdateRecordAsync(record);
 		}

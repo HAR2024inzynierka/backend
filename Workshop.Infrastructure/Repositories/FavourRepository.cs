@@ -5,10 +5,20 @@ using Workshop.Infrastructure.Data;
 
 namespace Workshop.Infrastructure.Repositories
 {
-	public class FavourRepository : IFavourRepository
+    /// <summary>
+    /// Implementacja repozytorium dla usług warsztatu.
+    /// Reprezentuje operacje na encji Favour w bazie danych.
+    /// </summary>
+    public class FavourRepository : IFavourRepository
 	{
 		private readonly WorkshopDbContext _context;
-		public FavourRepository(WorkshopDbContext context)
+
+        /// <summary>
+        /// Konstruktor repozytorium usług.
+        /// Inicjalizuje kontekst bazy danych.
+        /// </summary>
+        /// <param name="context">Kontekst bazy danych WorkshopDbContext.</param>
+        public FavourRepository(WorkshopDbContext context)
 		{
 			_context = context;
 		}
@@ -38,7 +48,9 @@ namespace Workshop.Infrastructure.Repositories
 
 		public async Task<List<Favour>> GetFavoursByAutoServiceIdAsync(int autoserviceId)
 		{
-			return await _context.Favours.Where(f => f.AutoRepairShopId == autoserviceId).ToListAsync();
+			return await _context.Favours
+				.Where(f => f.AutoRepairShopId == autoserviceId) // Filtruje usługi po identyfikatorze warsztatu
+                .ToListAsync();
 		}
 	}
 }

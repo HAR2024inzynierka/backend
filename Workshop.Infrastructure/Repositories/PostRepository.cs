@@ -6,10 +6,19 @@ using Workshop.Infrastructure.Data;
 
 namespace Workshop.Infrastructure.Repositories
 {
+    /// <summary>
+    /// Implementacja repozytorium dla postów.
+    /// Reprezentuje operacje na encji Post w bazie danych.
+    /// </summary>
     public class PostRepository : IPostRepository
     {
         private readonly WorkshopDbContext _context;
 
+        /// <summary>
+        /// Konstruktor repozytorium postów.
+        /// Inicjalizuje repozytorium z kontekstem bazy danych.
+        /// </summary>
+        /// <param name="context">Kontekst bazy danych WorkshopDbContext.</param>
         public PostRepository(WorkshopDbContext context)
         {
             _context = context;
@@ -18,9 +27,9 @@ namespace Workshop.Infrastructure.Repositories
         public async Task<Post?> GetPostByIdAsync(int id)
         {
            return await _context.Posts
-                .Include(p => p.Comments)
-                .Include(p => p.Likes)
-                .FirstOrDefaultAsync(p => p.Id == id);
+                .Include(p => p.Comments) // Załączamy komentarze do posta
+                .Include(p => p.Likes) // Załączamy polubienia do posta
+                .FirstOrDefaultAsync(p => p.Id == id); // Wyszukujemy post po jego ID
         }
 
         public async Task AddPostAsync(Post post)
@@ -44,17 +53,17 @@ namespace Workshop.Infrastructure.Repositories
         public async Task<List<Post>> GetAllPostsAsync()
         {
             return await _context.Posts
-                .Include(p => p.Comments)
-                .Include(p => p.Likes)
+                .Include(p => p.Comments) // Załączamy komentarze do posta
+                .Include(p => p.Likes) // Załączamy polubienia do posta
                 .ToListAsync();
         }
 
         public async Task<List<Post>> GetPostsByAutoServiceIdAsync(int autoRepairShopId)
         {
             return await _context.Posts
-                .Where(p => p.AutoRepairShopId == autoRepairShopId)
-                .Include(p => p.Comments)
-                .Include(p => p.Likes)
+                .Where(p => p.AutoRepairShopId == autoRepairShopId) // Filtrowanie postów po ID warsztatu
+                .Include(p => p.Comments) // Załączamy komentarze do posta
+                .Include(p => p.Likes) // Załączamy polubienia do posta
                 .ToListAsync();
                 
         }

@@ -3,11 +3,19 @@ using Workshop.Core.Interfaces;
 
 namespace Workshop.Core.Services
 {
-	public class FavourService: IFavourService
+    /// <summary>
+    /// Serwis odpowiedzialny za operacje związane z usługami oferowanymi przez warsztaty.
+    /// Zawiera metody umożliwiające zarządzanie usługami
+	/// </summary>
+    public class FavourService: IFavourService
 	{
 		private readonly IFavourRepository _favourRepository;
 
-		public FavourService(IFavourRepository favourRepository)
+        /// <summary>
+        /// Konstruktor serwisu FavourService.
+        /// </summary>
+        /// <param name="favourRepository">Repozytorium operujące na danych usług</param>
+        public FavourService(IFavourRepository favourRepository)
 		{
 			_favourRepository = favourRepository;
 		}
@@ -16,7 +24,8 @@ namespace Workshop.Core.Services
 		{
 			var favour = await _favourRepository.GetFavourByIdAsync(id);
 
-			if (favour == null)
+            // Jeśli usługa nie istnieje, rzuca wyjątek
+            if (favour == null)
 			{
 				throw new Exception("Favour not found");
 			}
@@ -32,11 +41,14 @@ namespace Workshop.Core.Services
 		public async Task UpdateFavourAsync(Favour updateFavour)
 		{
             var favour = await _favourRepository.GetFavourByIdAsync(updateFavour.Id);
+
+            // Jeśli usługa nie istnieje, rzuca wyjątek
             if (favour == null)
             {
                 throw new Exception("Favour not found");
             }
 
+            // Aktualizuje właściwości przysługi
             favour.TypeName = updateFavour.TypeName;
 			favour.Description = updateFavour.Description;
 			favour.Price = updateFavour.Price;
@@ -47,6 +59,8 @@ namespace Workshop.Core.Services
 		public async Task DeleteFavourAsync(int id)
 		{
             var favour = await _favourRepository.GetFavourByIdAsync(id);
+
+            // Jeśli usługa nie istnieje, rzuca wyjątek
             if (favour == null)
             {
                 throw new Exception("Favour not found");

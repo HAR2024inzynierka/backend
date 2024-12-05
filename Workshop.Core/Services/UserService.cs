@@ -4,11 +4,19 @@ using Workshop.Core.Interfaces;
 
 namespace Workshop.Core.Services
 {
+    /// <summary>
+    /// Serwis odpowiedzialny za operacje związane z użytkownikami oraz ich pojazdami.
+    /// </summary>
     public class UserService : IUserService
     {
         private readonly IUserRepository _userRepository;
         private readonly IVehicleRepository _vehicleRepository;
 
+        /// <summary>
+        /// Konstruktor serwisu UserService.
+        /// </summary>
+        /// <param name="userRepository">Repozytorium operujące na danych użytkowników</param>
+        /// <param name="vehicleRepository">Repozytorium operujące na danych pojazdów</param>
         public UserService(IUserRepository userRepository, IVehicleRepository vehicleRepository)
         {
             _userRepository = userRepository;
@@ -19,6 +27,7 @@ namespace Workshop.Core.Services
         {
             var user = await _userRepository.GetByIdAsync(userId);
 
+            // Jeśli użytkownik nie istnieje, rzucamy wyjątek
             if (user == null)
             {
                 throw new Exception("User not found");
@@ -35,11 +44,14 @@ namespace Workshop.Core.Services
         public async Task UpdateUserAsync(User updateUser)
         {
             var user = await _userRepository.GetByIdAsync(updateUser.Id);
+
+            // Jeśli użytkownik nie istnieje, rzucamy wyjątek
             if (user == null)
             {
                 throw new Exception("User not found");
             }
 
+            // Aktualizowanie pól użytkownika
             user.Login = updateUser.Login;
             user.Email = updateUser.Email;
             user.PhoneNumber = updateUser.PhoneNumber;
@@ -49,6 +61,8 @@ namespace Workshop.Core.Services
         public async Task DeleteUserAsync(int userId)
         {
             var user = await _userRepository.GetByIdAsync(userId);
+
+            // Jeśli użytkownik nie istnieje, rzucamy wyjątek
             if (user == null)
             {
                 throw new Exception("User not found");
@@ -59,26 +73,26 @@ namespace Workshop.Core.Services
         
         public async Task AddVehicleAsync(Vehicle vehicle)
         {
-            Console.WriteLine($"Dodawanie pojazdu: {vehicle.Brand} {vehicle.Model} z numerem rejestracyjnym: {vehicle.RegistrationNumber} dla użytkownika: {vehicle.UserId}");
-
+            // Sprawdza, czy pojazd o takim samym numerze VIN już istnieje
             if (await _vehicleRepository.VINExistsAsync(vehicle.VIN))
             {
-                Console.WriteLine($"Błąd: Pojazd z VIN numerem {vehicle.VIN} już istnieje.");
                 throw new Exception("A vehicle with the same VIN number already exists");
             }
 
             await _vehicleRepository.AddAsync(vehicle);
-            Console.WriteLine($"Pojazd dodany pomyślnie: {vehicle.Id}");
         }
 
         public async Task UpdateVehicleAsync(Vehicle updateVehicle)
         {
             var vehicle = await _vehicleRepository.GetVehicleByIdAsync(updateVehicle.Id);
-            if(vehicle == null)
+
+            // Jeśli pojazd nie istnieje, rzucamy wyjątek
+            if (vehicle == null)
             {
                 throw new Exception("Vehicle not found");
             }
 
+            // Aktualizuje dane pojazdu
             vehicle.Brand = updateVehicle.Brand;
             vehicle.Model = updateVehicle.Model;
             vehicle.RegistrationNumber = updateVehicle.RegistrationNumber;
@@ -93,6 +107,8 @@ namespace Workshop.Core.Services
         public async Task DeleteVehicleAsync(int vehicleId)
         {
             var vehicle  = await _vehicleRepository.GetVehicleByIdAsync(vehicleId);
+
+            // Jeśli pojazd nie istnieje, rzucamy wyjątek
             if (vehicle == null)
             {
                 throw new Exception("Vehicle not found");

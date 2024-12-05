@@ -9,12 +9,21 @@ using Workshop.Infrastructure.Repositories;
 
 namespace Workshop.Core.Services
 {
+    /// <summary>
+    /// Serwis odpowiedzialny za rejestrację użytkowników.
+    /// </summary>
     public class RegisterService : IRegisterService
     {
         private readonly IUserRepository _userRepository;
         private readonly string _jwtSecret;
         private readonly IPasswordHasherService _passwordHasherService;
 
+        /// <summary>
+        /// Konstruktor serwisu, który przyjmuje zależności.
+        /// </summary>
+        /// <param name="userRepository">Repozytorium użytkowników, używane do dodawania nowych użytkowników i sprawdzania istniejących.</param>
+        /// <param name="configuration">Konfiguracja aplikacji, w której znajduje się sekret JWT.</param>
+        /// <param name="passwordHasherService">Serwis odpowiedzialny za haszowanie haseł użytkowników.</param>
         public RegisterService(IUserRepository userRepository, IConfiguration configuration, IPasswordHasherService passwordHasherService)
         {
             _userRepository = userRepository;
@@ -24,11 +33,13 @@ namespace Workshop.Core.Services
 
         public async Task<string> RegisterUserAsync(string login, string email, string password)
         {
+            // Sprawdzanie, czy podany e-mail jest już używany.
             if (await _userRepository.EmailExistsAsync(email))
             {
                 throw new Exception("Email is already in use.");
             }
 
+            // Tworzenie nowego użytkownika z podanymi danymi.
             var user = new User
             {
                 Login = login,
@@ -40,7 +51,7 @@ namespace Workshop.Core.Services
             return GenerateJwtToken(user);
         }
 
-        public string GenerateJwtToken(User user)
+        public string GenerateJwtToken(User user) // wynesti metod v otdelnij servic i iz authService tozhe
         {
             var tokenHandler = new JwtSecurityTokenHandler();
             var key = Encoding.ASCII.GetBytes(_jwtSecret);

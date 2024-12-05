@@ -3,11 +3,18 @@ using Workshop.Core.Interfaces;
 
 namespace Workshop.Core.Services
 {
-	public class TermService : ITermService
+    /// <summary>
+    /// Klasa serwisowa dla operacji związanych z terminami.
+    /// </summary>
+    public class TermService : ITermService
 	{
 		private readonly ITermRepository _termRepository;
 
-		public TermService(ITermRepository termRepository)
+        /// <summary>
+        /// Konstruktor serwisu TermService.
+        /// </summary>
+        /// <param name="termRepository">Repozytorium operujące na danych terminów</param>
+        public TermService(ITermRepository termRepository)
 		{
 			_termRepository = termRepository;
 		}
@@ -16,7 +23,8 @@ namespace Workshop.Core.Services
 		{
 			var term = await _termRepository.GetTermByIdAsync(termId);
 
-			if (term == null)
+            // Jeżeli termin nie istnieje, rzucamy wyjątek
+            if (term == null)
 			{
 				throw new Exception("Term not found");
 			}
@@ -31,11 +39,14 @@ namespace Workshop.Core.Services
 		public async Task UpdateTermAsync(Term updateTerm)
 		{
             var term = await _termRepository.GetTermByIdAsync(updateTerm.Id);
+
+            // Jeżeli termin nie istnieje, rzucamy wyjątek
             if (term == null)
             {
                 throw new Exception("Term not found");
             }
 
+            // Aktualizujemy dane terminu
             term.StartDate = updateTerm.StartDate;
 			term.EndDate = updateTerm.EndDate;
 			term.Availability = updateTerm.Availability;
@@ -46,6 +57,8 @@ namespace Workshop.Core.Services
 		public async Task DeleteTermAsync(int termId)
 		{
             var term = await _termRepository.GetTermByIdAsync(termId);
+
+            // Jeżeli termin nie istnieje, rzucamy wyjątek
             if (term == null)
             {
                 throw new Exception("Term not found");

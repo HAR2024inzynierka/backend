@@ -5,11 +5,19 @@ using Workshop.Infrastructure.Data;
 
 namespace Workshop.Infrastructure.Repositories
 {
-	public class RecordRepository : IRecordRepository
+    /// <summary>
+    /// Repozytorium operujące na rekordach (wizytach) w systemie warsztatów samochodowych.
+    /// Reprezentuje operacje na encji Record w bazie danych.
+    /// </summary>
+    public class RecordRepository : IRecordRepository
 	{
 		private readonly WorkshopDbContext _context;
 
-		public RecordRepository(WorkshopDbContext context)
+        /// <summary>
+        /// Konstruktor repozytorium, który wstrzykuje kontekst bazy danych.
+        /// </summary>
+        /// <param name="context">Kontekst bazy danych.</param>
+        public RecordRepository(WorkshopDbContext context)
 		{
 			_context = context;
 		}
@@ -39,22 +47,22 @@ namespace Workshop.Infrastructure.Repositories
 		public async Task<List<Record>> GetRecordsByUserIdAsync(int userId)
 		{
 			return await _context.Records
-				.Include(r => r.Vehicle)
-				.Include(r => r.Favour)
-					.ThenInclude(f => f.AutoRepairShop)
-				.Include(r => r.Term)
-				.Where(r => r.Vehicle.UserId == userId)
-				.ToListAsync();
+				.Include(r => r.Vehicle) // Załączamy pojazdy do rekordu
+                .Include(r => r.Favour) // Załączamy usługi do rekordu
+                    .ThenInclude(f => f.AutoRepairShop) // Załączamy warsztaty do usług
+                .Include(r => r.Term) // Załączamy terminy do rekordu
+                .Where(r => r.Vehicle.UserId == userId) // Filtruje rekordy po użytkowniku
+                .ToListAsync();
 		}
 
 		public async Task<List<Record>> GetUncompletedRecordsAsync()
 		{
 			return await _context.Records
-                .Include(r => r.Vehicle)
-                .Include(r => r.Favour)
-                    .ThenInclude(f => f.AutoRepairShop)
-                .Include(r => r.Term)
-                .Where(r => r.CompletionDate == null)
+                .Include(r => r.Vehicle) // Załączamy pojazdy do rekordu
+                .Include(r => r.Favour) // Załączamy usługi do rekordu
+                    .ThenInclude(f => f.AutoRepairShop) // Załączamy warsztaty do usług
+                .Include(r => r.Term) // Załączamy terminy do rekordu
+                .Where(r => r.CompletionDate == null) // Filtruje rekordy, które nie zostały ukończone
                 .ToListAsync();
         }
 	}

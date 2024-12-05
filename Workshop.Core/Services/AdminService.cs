@@ -4,11 +4,21 @@ using Workshop.Infrastructure.Repositories;
 
 namespace Workshop.Core.Services
 {
-	public class AdminService : IAdminService
+    /// <summary>
+    /// Serwis administracyjny, który realizuje operacje zarządzania użytkownikami
+    /// oraz warsztatami samochodowymi.
+    /// </summary>
+    public class AdminService : IAdminService
 	{
 		private readonly IAutoRepairShopRepository _autoRepairShopRepository;
 		private readonly IUserRepository _userRepository;
-		public AdminService(IAutoRepairShopRepository autoRepairShopRepository, IUserRepository userRepository) 
+
+        /// <summary>
+        /// Konstruktor, który inicjalizuje serwis administracyjny.
+        /// </summary>
+        /// <param name="autoRepairShopRepository">Repozytorium do operacji na warsztatach samochodowych.</param>
+        /// <param name="userRepository">Repozytorium do operacji na użytkownikach.</param>
+        public AdminService(IAutoRepairShopRepository autoRepairShopRepository, IUserRepository userRepository) 
 		{ 
 			_autoRepairShopRepository = autoRepairShopRepository;
 			_userRepository = userRepository;
@@ -18,6 +28,7 @@ namespace Workshop.Core.Services
 		{
 			return await _userRepository.GetAllUsersAsync();
 		}
+
 		public async Task AddAutoRepairShopAsync(string email, string address, string phoneNumber)
 		{
 			var autoRepairShop = new AutoRepairShop

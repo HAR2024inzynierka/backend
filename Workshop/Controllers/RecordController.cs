@@ -1,11 +1,12 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Workshop.Core.Entities;
 using Workshop.Core.Interfaces;
-using Workshop.DTOs;
 
 namespace Workshop.Controllers
 {
+    /// <summary>
+    /// Kontroler odpowiedzialny za operacje związane z zapisami w warsztatach.
+    /// </summary>
     [Authorize]
     [ApiController]
     [Route("api/admin/[controller]")]
@@ -13,11 +14,19 @@ namespace Workshop.Controllers
     {
         private readonly IRecordService _recordService;
 
+        /// <summary>
+        /// Konstruktor kontrolera, który inicjalizuje serwis do obsługi zapisów.
+        /// </summary>
+        /// <param name="recordService">Serwis odpowiedzialny za operacje na rekordach.</param>
         public RecordController(IRecordService recordService)
         {
             _recordService = recordService;
         }
 
+        /// <summary>
+        /// Pobiera listę niezakończonych zapisów.
+        /// </summary>
+        /// <returns>Lista niezakończonych zapisów.</returns>
         [HttpGet]
         public async Task<IActionResult> GetUncompletedRecords()
         {
@@ -25,6 +34,11 @@ namespace Workshop.Controllers
             return Ok(records);
         }
 
+        /// <summary>
+        /// Zmienia status zapisu na zakończony.
+        /// </summary>
+        /// <param name="recordId">Identyfikator zapisu, który ma zostać zakończony.</param>
+        /// <returns>Status operacji zakończenia zapisu.</returns>
         [HttpPut("complete/{recordId}")]
         public async Task<IActionResult> CompleteRecord(int recordId)
         {

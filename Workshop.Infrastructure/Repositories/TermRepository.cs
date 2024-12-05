@@ -5,11 +5,19 @@ using Workshop.Infrastructure.Data;
 
 namespace Workshop.Infrastructure.Repositories
 {
-	public class TermRepository : ITermRepository
+    /// <summary>
+    /// Repozytorium do zarządzania terminami wizyt w systemie warsztatów samochodowych.
+    /// Implementuje operacje na danych związanych z terminami wizyt.
+    /// </summary>
+    public class TermRepository : ITermRepository
 	{
 		private readonly WorkshopDbContext _context;
 
-		public TermRepository(WorkshopDbContext context)
+        /// <summary>
+        /// Konstruktor klasy repozytorium. Używa kontekstu bazy danych do zarządzania danymi.
+        /// </summary>
+        /// <param name="context">Kontekst bazy danych</param>
+        public TermRepository(WorkshopDbContext context)
 		{
 			_context = context;
 		}
@@ -39,7 +47,9 @@ namespace Workshop.Infrastructure.Repositories
 
 		public async Task<List<Term>> GetTermsByAutoServiceIdAsync(int autoserviceId)
 		{
-			return await _context.Terms.Where(t => t.AutoServiceId == autoserviceId).ToListAsync();
+			return await _context.Terms
+				.Where(t => t.AutoServiceId == autoserviceId) // Filtruje po ID warsztatu
+                .ToListAsync();
 		}
 	}
 }

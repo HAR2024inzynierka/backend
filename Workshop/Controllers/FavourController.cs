@@ -6,22 +6,36 @@ using Workshop.Core.Entities;
 
 namespace Workshop.Controllers
 {
-	[Authorize]
+    /// <summary>
+    /// Kontroler do zarządzania usługami w warsztatach.
+    /// </summary>
+    [Authorize]
 	[ApiController]
 	[Route("api/admin/[controller]")]
 	public class FavourController : ControllerBase
 	{
 		private readonly IFavourService _favourService;
 
-		public FavourController(IFavourService favourService)
+        /// <summary>
+        /// Konstruktor kontrolera, który inicjalizuje serwis do obsługi usług.
+        /// </summary>
+        /// <param name="favourService">Serwis odpowiedzialny za operacje na usługach.</param>
+        public FavourController(IFavourService favourService)
 		{
 			_favourService = favourService;
 		}
 
-		[HttpGet("{favourId}")]
+        /// <summary>
+        /// Pobiera szczegóły usługi na podstawie identyfikatora.
+        /// </summary>
+        /// <param name="favourId">Identyfikator usługi.</param>
+        /// <returns>Usługa lub 404 Not Found, jeśli nie znaleziono.</returns>
+        [HttpGet("{favourId}")]
 		public async Task<IActionResult> GetFavourByIdAsync(int favourId)
 		{
             var favour = await _favourService.GetFavourByIdAsync(favourId);
+
+            //Sprawdzamy czy usługa istnieje. 
             if (favour == null)
             {
                 return NotFound();
@@ -30,17 +44,24 @@ namespace Workshop.Controllers
             return Ok(favour);
         }
 
+        /// <summary>
+        /// Dodaje nową usługę do bazy danych.
+        /// </summary>
+        /// <param name="favourDto">Dane nowej usługi do dodania.</param>
+        /// <returns>Status wykonania operacji dodawania usługi.</returns>
 		[HttpPost("add")]
 		public async Task<IActionResult> AddFavour([FromBody] AddFavourDto favourDto)
 		{
-			if (!ModelState.IsValid)
+            // Sprawdzenie, czy dane wejściowe są poprawne.
+            if (!ModelState.IsValid)
 			{
 				return BadRequest(ModelState);
 			}
 
 			try
 			{
-				var favour = new Favour
+                // Tworzenie obiektu usługi na podstawie danych DTO.
+                var favour = new Favour
 				{
 					TypeName = favourDto.TypeName,
 					Description = favourDto.Description,
@@ -57,16 +78,24 @@ namespace Workshop.Controllers
 			}
 		}
 
+        /// <summary>
+        /// Aktualizuje dane istniejącej usługi.
+        /// </summary>
+        /// <param name="favourId">Identyfikator usługi do zaktualizowania.</param>
+        /// <param name="favourDto">Dane usługi do aktualizacji.</param>
+        /// <returns>Status wykonania operacji aktualizacji usługi.</returns>
 		[HttpPut("{favourId}")]
 		public async Task<IActionResult> UpdateFavour(int favourId, [FromBody]AddFavourDto favourDto)
 		{
-			if (!ModelState.IsValid)
+            // Sprawdzenie poprawności danych wejściowych.
+            if (!ModelState.IsValid)
 			{
 				return BadRequest(ModelState);
 			}
 
             try
             {
+                // Tworzenie obiektu usługi na podstawie danych DTO oraz identyfikatora.
                 var favour = new Favour
                 {
 					Id = favourId,
@@ -83,6 +112,11 @@ namespace Workshop.Controllers
             }
         }
 
+        /// <summary>
+        /// Usuwa usługę na podstawie identyfikatora.
+        /// </summary>
+        /// <param name="favourId">Identyfikator usługi do usunięcia.</param>
+        /// <returns>Status wykonania operacji usunięcia usługi.</returns>
 		[HttpDelete("{favourId}")]
 		public async Task<IActionResult> DeleteFavour(int favourId)
 		{

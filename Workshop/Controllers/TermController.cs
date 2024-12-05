@@ -6,6 +6,9 @@ using Workshop.DTOs;
 
 namespace Workshop.Controllers
 {
+    /// <summary>
+    /// Kontroler odpowiedzialny za zarządzanie terminami w warsztacie.
+    /// </summary>
 	[Authorize]
 	[ApiController]
 	[Route("api/admin/[controller]")]
@@ -13,15 +16,26 @@ namespace Workshop.Controllers
 	{
 		private readonly ITermService _termService;
 
-		public TermController(ITermService termService)
+        /// <summary>
+        /// Konstruktor kontrolera, który inicjalizuje serwis terminów.
+        /// </summary>
+        /// <param name="termService">Serwis odpowiedzialny za operacje na terminach.</param>
+        public TermController(ITermService termService)
 		{
 			_termService = termService;
 		}
 
-		[HttpGet("{termId}")]
+        /// <summary>
+        /// Pobiera szczegóły terminu na podstawie jego identyfikatora.
+        /// </summary>
+        /// <param name="termId">Identyfikator terminu.</param>
+        /// <returns>Jeśli termin istnieje, zwraca jego dane. W przeciwnym razie zwraca błąd 404.</returns>
+        [HttpGet("{termId}")]
 		public async Task<IActionResult> GetTermById(int termId)
 		{
             var term = await _termService.GetTermByIdAsync(termId);
+
+            //Sprawdzamy czy termin istnieje. 
             if (term == null)
             {
                 return NotFound();
@@ -30,17 +44,24 @@ namespace Workshop.Controllers
             return Ok(term);
         }
 
+        /// <summary>
+        /// Dodaje nowy termin do systemu.
+        /// </summary>
+        /// <param name="termDto">Obiekt DTO zawierający dane nowego terminu.</param>
+        /// <returns>Status operacji (sukces lub błąd).</returns>
 		[HttpPost("add")]
 		public async Task<IActionResult> AddTerm([FromBody] AddTermDto termDto)
 		{
-			if (!ModelState.IsValid)
+            // Sprawdzanie poprawności danych wejściowych
+            if (!ModelState.IsValid)
 			{
 				return BadRequest(ModelState);
 			}
 
 			try
 			{
-				var term = new Term
+                // Tworzenie nowego obiektu Term z danych DTO
+                var term = new Term
 				{
 					StartDate = termDto.StartDate,
 					EndDate = termDto.EndDate,
@@ -57,9 +78,16 @@ namespace Workshop.Controllers
 			}
 		}
 
+        /// <summary>
+        /// Aktualizuje istniejący termin.
+        /// </summary>
+        /// <param name="termId">Identyfikator terminu, który ma zostać zaktualizowany.</param>
+        /// <param name="termDto">Nowe dane terminu.</param>
+        /// <returns>Status operacji (sukces lub błąd).</returns>
         [HttpPut("{termId}")]
         public async Task<IActionResult> UpdateTerm(int termId, [FromBody] AddTermDto termDto)
         {
+            // Sprawdzanie poprawności danych wejściowych
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
@@ -67,6 +95,7 @@ namespace Workshop.Controllers
 
             try
             {
+                // Tworzenie obiektu Term z nowymi danymi
                 var term = new Term
                 {
                     Id = termId,
@@ -85,6 +114,11 @@ namespace Workshop.Controllers
             }
         }
 
+        /// <summary>
+        /// Usuwa termin na podstawie jego identyfikatora.
+        /// </summary>
+        /// <param name="termId">Identyfikator terminu do usunięcia.</param>
+        /// <returns>Status operacji (sukces lub błąd).</returns>
         [HttpDelete("{termId}")]
         public async Task<IActionResult> DeleteTerm(int termId)
         {

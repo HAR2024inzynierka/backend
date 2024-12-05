@@ -5,10 +5,19 @@ using Workshop.Infrastructure.Data;
 
 namespace Workshop.Infrastructure.Repositories
 {
+    /// <summary>
+    /// Implementacja repozytorium dla warsztatów samochodowych.
+    /// Odpowiada za interakcję z bazą danych dotyczącą encji AutoRepairShop.
+    /// </summary>
     public class AutoRepairShopRepository : IAutoRepairShopRepository
 	{
         private readonly WorkshopDbContext _context;
 
+        /// <summary>
+        /// Konstruktor repozytorium warsztatów samochodowych.
+        /// Inicjalizuje kontekst bazy danych.
+        /// </summary>
+        /// <param name="context">Kontekst bazy danych WorkshopDbContext.</param>
         public AutoRepairShopRepository (WorkshopDbContext context)
         {
             _context = context;
@@ -19,9 +28,9 @@ namespace Workshop.Infrastructure.Repositories
             return await _context.AutoRepairShops.FindAsync(id);
         }
 
-        public async Task AddAsync(AutoRepairShop autoRapairShop)
+        public async Task AddAsync(AutoRepairShop autoRepairShop)
         {
-            await _context.AutoRepairShops.AddAsync(autoRapairShop);
+            await _context.AutoRepairShops.AddAsync(autoRepairShop);
             await _context.SaveChangesAsync();
         }
 

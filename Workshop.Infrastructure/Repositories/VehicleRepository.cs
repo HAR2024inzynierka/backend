@@ -4,10 +4,18 @@ using Workshop.Infrastructure.Data;
 
 namespace Workshop.Infrastructure.Repositories
 {
+    /// <summary>
+    /// Repozytorium do operacji na pojazdach.
+    /// Implementuje metody dostępu do danych związanych z pojazdami w bazie danych.
+    /// </summary>
     public class VehicleRepository : IVehicleRepository
     {
         private readonly WorkshopDbContext _context;
 
+        /// <summary>
+        /// Konstruktor, który inicjalizuje repozytorium z kontekstem bazy danych.
+        /// </summary>
+        /// <param name="context">Kontekst bazy danych</param>
         public VehicleRepository (WorkshopDbContext context)
         {
             _context = context;
@@ -43,7 +51,9 @@ namespace Workshop.Infrastructure.Repositories
 
         public async Task<List<Vehicle>> GetAllVehiclesOfUserAsync(int userId)
         {
-            return await _context.Vehicles.Where(v => v.UserId == userId).ToListAsync();
+            return await _context.Vehicles
+                .Where(v => v.UserId == userId) // Filtrujemy pojazdy po użytkowniku
+                .ToListAsync();
         }
     }
 }
