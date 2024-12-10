@@ -71,5 +71,34 @@ namespace Workshop.Core.Services
 		{
 			return await _termRepository.GetTermsByAutoServiceIdAsync(autoserviceId);
 		}
-	}
+
+        public async Task AddTermsForDayAsync(int autoServiceId, DateTime day)
+        {
+            // Define start and end hours
+            var startHour = 8;
+            var endHour = 18;
+
+            // Generate terms
+            var terms = new List<Term>();
+            for (var hour = startHour; hour < endHour; hour++)
+            {
+                var startDateTime = new DateTime(day.Year, day.Month, day.Day, hour, 0, 0);
+                var endDateTime = startDateTime.AddHours(1);
+
+                terms.Add(new Term
+                {
+                    StartDate = startDateTime,
+                    EndDate = endDateTime,
+                    Availability = true, // Default availability to true
+                    AutoServiceId = autoServiceId
+                });
+            }
+
+            // Add terms to the repository
+            foreach (var term in terms)
+            {
+                await _termRepository.AddTermAsync(term);
+            }
+        }
+    }
 }

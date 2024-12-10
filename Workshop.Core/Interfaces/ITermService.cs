@@ -38,5 +38,7 @@ namespace Workshop.Core.Interfaces
         /// <param name="autoserviceId">Identyfikator warsztatu samochodowego, którego terminy mają zostać pobrane.</param>
         /// <returns>Lista terminów przypisanych do podanego warsztatu.</returns>
 		Task<List<Term>> GetTermsByAutoServiceIdAsync(int autoserviceId);
-	}
+
+        Task AddTermsForDayAsync(int autoServiceId, DateTime day);
+    }
 }

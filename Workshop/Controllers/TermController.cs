@@ -133,5 +133,23 @@ namespace Workshop.Controllers
             }
         }
 
+        [HttpPost("term-for-day")]
+        public async Task<IActionResult> AddTermForDay([FromBody] AddDayTermsDto dayTermsDto)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            try
+            {
+                await _termService.AddTermsForDayAsync(dayTermsDto.AutoServiceId, dayTermsDto.Day);
+                return Ok("Terms for the day added successfully.");
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { message = ex.Message });
+            }
+        }
+
     }
 }
