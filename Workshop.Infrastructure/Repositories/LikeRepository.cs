@@ -24,9 +24,10 @@ namespace Workshop.Infrastructure.Repositories
             _context = context;
         }
 
-        public async Task<Like?> GetLikeByIdAsync(int id)
+        public async Task<Like?> GetLikeByUserIdAndPostIdAsync(int userId, int postId)
         {
-            return await _context.Likes.FindAsync(id);
+            return await _context.Likes
+                .FirstOrDefaultAsync( l => l.PostId == postId && l.UserId == userId );
         }
 
         public async Task AddLikeAsync(Like like)

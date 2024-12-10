@@ -1,5 +1,4 @@
-﻿
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Workshop.Core.Entities;
 using Workshop.Core.Interfaces;
 using Workshop.Infrastructure.Data;

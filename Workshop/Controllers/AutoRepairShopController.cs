@@ -16,6 +16,7 @@ namespace Workshop.Controllers
 		private readonly ITermService _termService;
 		private readonly IFavourService _favourService;
 		private readonly IRecordService _recordService;
+        private readonly IPostService _postService;
 
         /// <summary>
         /// Konstruktor kontrolera, który inicjalizuje zależności serwisów.
@@ -24,12 +25,14 @@ namespace Workshop.Controllers
         /// <param name="termService">Serwis odpowiedzialny za operacje na terminach.</param>
         /// <param name="favourService">Serwis odpowiedzialny za operacje na usługach.</param>
         /// <param name="recordService">Serwis odpowiedzialny za operacje na rekordach.</param>
-        public AutoRepairShopController(IAutoRepairShopService autoRepairShopService, ITermService termService, IFavourService favourService, IRecordService recordService) 
+        /// /// <param name="postService">Serwis odpowiedzialny za operacje na postach.</param>
+        public AutoRepairShopController(IAutoRepairShopService autoRepairShopService, ITermService termService, IFavourService favourService, IRecordService recordService, IPostService postService) 
 		{
 			_autoRepairShopService = autoRepairShopService;
 			_termService = termService;
 			_favourService = favourService;
 			_recordService = recordService;
+            _postService = postService;
 		}
 
         /// <summary>
@@ -119,5 +122,12 @@ namespace Workshop.Controllers
 				return BadRequest(new { message = ex.Message });
 			}
 		}
-	}
+
+        [HttpGet("{autoRepairShopId}/posts")]
+        public async Task<IActionResult> GetPostsByAutoRepairShopId(int autoRepairShopId)
+        {
+            var posts = await _postService.GetPostsByAutoServiceIdAsync(autoRepairShopId);
+            return Ok(posts);
+        }
+    }
 }

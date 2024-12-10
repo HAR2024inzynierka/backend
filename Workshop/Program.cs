@@ -110,6 +110,7 @@ namespace Workshop
             builder.Services.AddScoped<IFavourService, FavourService>();
             builder.Services.AddScoped<ITermService, TermService>();
             builder.Services.AddScoped<IRecordService, RecordService>();
+            builder.Services.AddScoped<IPostService, PostService>();
 
             // Rejestracja dostępu do HttpContext
             builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();

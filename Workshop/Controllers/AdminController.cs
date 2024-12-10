@@ -3,6 +3,7 @@ using Workshop.DTOs;
 using Workshop.Core.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Workshop.Core.Entities;
+using Workshop.Core.Services;
 
 namespace Workshop.Controllers
 {
@@ -17,17 +18,19 @@ namespace Workshop.Controllers
     {
         private readonly IAdminService _adminService;
         private readonly IAutoRepairShopService _autoRepairShopService;
+        private readonly IPostService _postService;
 
         /// <summary>
         /// Konstruktor kontrolera, który inicjalizuje zależności serwisów.
         /// </summary>
         /// <param name="adminService">Serwis do zarządzania użytkownikami.</param>
         /// <param name="autoRepairShopService">Serwis do zarządzania warsztatami.</param>
-        public AdminController(IAdminService adminService, IAutoRepairShopService autoRepairShopService)
+        public AdminController(IAdminService adminService, IAutoRepairShopService autoRepairShopService, IPostService postService)
         {
 
             _adminService = adminService;
             _autoRepairShopService = autoRepairShopService;
+            _postService = postService;
         }
 
         /// <summary>
@@ -118,6 +121,67 @@ namespace Workshop.Controllers
             {
                 return BadRequest(new { message = ex.Message });
             }
+        }
+
+        [HttpPost("post")]
+        public async Task<IActionResult> CreatePost([FromBody] PostDto postDto)
+        {
+            // Sprawdzamy poprawność danych wejściowych
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            try
+            {
+                var post = new Post
+                {
+                    Title = postDto.Title,
+                    Content = postDto.Content,
+                    AutoRepairShopId = postDto.AutoRepairShopId,
+                };
+
+                await _postService.AddPostAsync(post);
+                return Ok("Post added successfully.");
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { message = ex.Message });
+            }
+
+        }
+
+        [HttpPut("post/{postId}")]
+        public async Task<IActionResult> UpdatePost(int postId, [FromBody] PostDto postDto)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            try
+            {
+                var post = new Post
+                {
+                    Id = postId,
+                    Title = postDto.Title,
+                    Content = postDto.Content,
+                    AutoRepairShopId = postDto.AutoRepairShopId,
+                };
+
+                await _postService.UpdatePostAsync(post);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { message = ex.Message });
+            }
+        }
+
+        [HttpDelete("post/{postId}")]
+        public async Task<IActionResult> DeletePost(int postId)
+        {
+            await _postService.DeletePostAsync(postId);
+            return Ok();
         }
     }
 }

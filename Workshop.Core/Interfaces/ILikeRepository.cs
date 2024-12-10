@@ -9,11 +9,12 @@ namespace Workshop.Core.Interfaces
     public interface ILikeRepository
     {
         /// <summary>
-        /// Pobiera polubienie na podstawie identyfikatora.
+        /// Pobiera polubienie na podstawie identyfikatora użytkownika i identyfikatora posta.
         /// </summary>
-        /// <param name="id">Identyfikator polubienia.</param>
+        /// <param name="userId">Identyfikator użytkownika.</param>
+        /// /// <param name="postId">Identyfikator posta.</param>
         /// <returns>Obiekt Like lub null, jeśli nie znaleziono polubienia.</returns>
-        Task<Like?> GetLikeByIdAsync(int id);
+        Task<Like?> GetLikeByUserIdAndPostIdAsync(int userId, int postId);
 
         /// <summary>
         /// Dodaje nowe polubienie do bazy danych.
