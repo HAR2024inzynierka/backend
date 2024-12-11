@@ -60,7 +60,15 @@ namespace Workshop.Controllers
 
 			try
 			{
-                await _autoRepairShopService.AddAutoRepairShopAsync(autoRepairShopDto.Email, autoRepairShopDto.Address, autoRepairShopDto.PhoneNumber);
+                // Przygotowujemy obiekt AutoRepairShop z danymi
+                var autoRepairShop = new AutoRepairShop
+                {
+                    Email = autoRepairShopDto.Email,
+                    Address = autoRepairShopDto.Address,
+                    PhoneNumber = autoRepairShopDto.PhoneNumber
+                };
+
+                await _autoRepairShopService.AddAutoRepairShopAsync(autoRepairShop);
 				return Ok();
 			}
 			catch (Exception ex)

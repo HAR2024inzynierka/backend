@@ -17,10 +17,8 @@ namespace Workshop.Core.Interfaces
         /// <summary>
         /// Dodaje nowy warsztat samochodowy do systemu.
         /// </summary>
-        /// <param name="email">Adres e-mail warsztatu.</param>
-        /// <param name="address">Adres warsztatu samochodowego.</param>
-        /// <param name="phoneNumber">Numer telefonu warsztatu samochodowego.</param>
-		Task AddAutoRepairShopAsync(string email, string address, string phoneNumber);
+        /// <param name="autoRepairShop">Obiekt AutoRepairShop, który ma zostać dodany</param>
+		Task AddAutoRepairShopAsync(AutoRepairShop autoRepairShop);
 
         /// <summary>
         /// Asynchronicznie aktualizuje dane istniejącego warsztatu samochodowego.
