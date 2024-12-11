@@ -12,10 +12,12 @@ namespace Workshop.Controllers
     public class PostController : ControllerBase
     {
         private readonly IPostService _postService;
+        private readonly ITokenService _tokenService;
 
-        public PostController(IPostService postService)
+        public PostController(IPostService postService, ITokenService tokenService)
         {
             _postService = postService;
+            _tokenService = tokenService;
         }
 
         [HttpGet("{id}")]
@@ -45,7 +47,7 @@ namespace Workshop.Controllers
                 {
                     Content = commentDto.Content,
                     PostId = id,
-                    UserId = commentDto.UserId
+                    UserId = _tokenService.GetUserIdFromToken(HttpContext)
                 };
 
                 await _postService.AddCommentAsync(comment);
@@ -80,7 +82,7 @@ namespace Workshop.Controllers
                 {
                     Id = commentId,
                     Content = commentDto.Content,
-                    UserId = commentDto.UserId,
+                    UserId = _tokenService.GetUserIdFromToken(HttpContext),
                     PostId = commentDto.PostId
                 };
 
@@ -110,17 +112,19 @@ namespace Workshop.Controllers
 
         [Authorize]
         [HttpGet("{id}/isLiked")]
-        public async Task<IActionResult> IsPostLikedByUser(int id, [FromQuery] int userId)
+        public async Task<IActionResult> IsPostLikedByUser(int id)
         {
+            var userId = _tokenService.GetUserIdFromToken(HttpContext);
             var isLiked = await _postService.IsUserLikedPostAsync(userId, id);
             return Ok(isLiked);
         }
 
         [Authorize]
         [HttpPost("{id}/like")]
-        public async Task<IActionResult> AddLike(int id, [FromBody] LikeDto likeDto)
+        public async Task<IActionResult> AddLike(int id)
         {
-            await _postService.AddLikeAsync(id, likeDto.UserId);
+            var userId = _tokenService.GetUserIdFromToken(HttpContext);
+            await _postService.AddLikeAsync(id, userId);
             return Ok();
         }
 
@@ -128,7 +132,8 @@ namespace Workshop.Controllers
         [HttpDelete("{id}/like")]
         public async Task<IActionResult> RemoveLike(int id, [FromBody] LikeDto likeDto)
         {
-            await _postService.RemoveLikeAsync(id, likeDto.UserId);
+            var userId = _tokenService.GetUserIdFromToken(HttpContext);
+            await _postService.RemoveLikeAsync(id, userId);
             return Ok();
         }
     }
