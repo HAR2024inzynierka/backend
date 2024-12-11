@@ -33,6 +33,16 @@ namespace Workshop.Core.Services
             return autoRepairShop;
 		}
 
+        public async Task AddAutoRepairShopAsync(string email, string address, string phoneNumber)
+        {
+            var autoRepairShop = new AutoRepairShop
+            {
+                Email = email,
+                Address = address,
+                PhoneNumber = phoneNumber
+            };
+            await _autoRepairShopRepository.AddAsync(autoRepairShop);
+        }
 
         public async Task UpdateAsync(AutoRepairShop updateShop)
 		{

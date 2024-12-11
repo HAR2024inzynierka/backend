@@ -15,6 +15,12 @@ namespace Workshop.Core.Interfaces
         Task<User> GetUserByIdAsync(int userId);
 
         /// <summary>
+        /// Pobiera listę wszystkich użytkowników.
+        /// </summary>
+        /// <returns>Lista wszystkich użytkowników w systemie.</returns>
+		Task<List<User>> GetAllUsersAsync();
+
+        /// <summary>
         /// Pobiera wszystkie pojazdy przypisane do użytkownika.
         /// </summary>
         /// <param name="userId">Identyfikator użytkownika.</param>

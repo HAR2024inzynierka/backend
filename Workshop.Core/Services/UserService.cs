@@ -36,6 +36,11 @@ namespace Workshop.Core.Services
             return user;
         }
 
+        public async Task<List<User>> GetAllUsersAsync()
+        {
+            return await _userRepository.GetAllUsersAsync();
+        }
+
         public async Task<List<Vehicle>> GetAllVehiclesAsync(int userId)
         {
             return await _vehicleRepository.GetAllVehiclesOfUserAsync(userId);

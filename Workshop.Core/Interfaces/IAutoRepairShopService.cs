@@ -13,11 +13,21 @@ namespace Workshop.Core.Interfaces
         /// <param name="id">Identyfikator warsztatu.</param>
         /// <returns>Obiekt AutoRepairShop</returns>
         Task<AutoRepairShop> GetAutoRepairShopByIdAsync(int id);
+
+        /// <summary>
+        /// Dodaje nowy warsztat samochodowy do systemu.
+        /// </summary>
+        /// <param name="email">Adres e-mail warsztatu.</param>
+        /// <param name="address">Adres warsztatu samochodowego.</param>
+        /// <param name="phoneNumber">Numer telefonu warsztatu samochodowego.</param>
+		Task AddAutoRepairShopAsync(string email, string address, string phoneNumber);
+
         /// <summary>
         /// Asynchronicznie aktualizuje dane istniejącego warsztatu samochodowego.
         /// </summary>
         /// <param name="autoRepairShop">Obiekt AutoRepairShop zawierający zaktualizowane informacje.</param>
         Task UpdateAsync(AutoRepairShop autoRepairShop);
+
         /// <summary>
         /// Asynchronicznie usuwa warsztat samochodowy na podstawie unikalnego ID.
         /// </summary>

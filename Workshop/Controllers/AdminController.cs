@@ -3,7 +3,6 @@ using Workshop.DTOs;
 using Workshop.Core.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Workshop.Core.Entities;
-using Workshop.Core.Services;
 
 namespace Workshop.Controllers
 {
@@ -16,7 +15,7 @@ namespace Workshop.Controllers
     [Route("api/admin")]
     public class AdminController : ControllerBase
     {
-        private readonly IAdminService _adminService;
+        private readonly IUserService _userService;
         private readonly IAutoRepairShopService _autoRepairShopService;
         private readonly IPostService _postService;
 
@@ -25,10 +24,11 @@ namespace Workshop.Controllers
         /// </summary>
         /// <param name="adminService">Serwis do zarządzania użytkownikami.</param>
         /// <param name="autoRepairShopService">Serwis do zarządzania warsztatami.</param>
-        public AdminController(IAdminService adminService, IAutoRepairShopService autoRepairShopService, IPostService postService)
+        /// <param name="postService">Serwis do zarządzania postami.</param>
+        public AdminController(IUserService userService, IAutoRepairShopService autoRepairShopService, IPostService postService)
         {
 
-            _adminService = adminService;
+            _userService = userService;
             _autoRepairShopService = autoRepairShopService;
             _postService = postService;
         }
@@ -40,7 +40,7 @@ namespace Workshop.Controllers
         [HttpGet("users")]
         public async Task<IActionResult> GetAllUsers()
         {
-            var users = await _adminService.GetAllUsersAsync();
+            var users = await _userService.GetAllUsersAsync();
             return Ok(users);
         }
 
@@ -60,7 +60,7 @@ namespace Workshop.Controllers
 
 			try
 			{
-                await _adminService.AddAutoRepairShopAsync(autoRepairShopDto.Email, autoRepairShopDto.Address, autoRepairShopDto.PhoneNumber);
+                await _autoRepairShopService.AddAutoRepairShopAsync(autoRepairShopDto.Email, autoRepairShopDto.Address, autoRepairShopDto.PhoneNumber);
 				return Ok();
 			}
 			catch (Exception ex)
