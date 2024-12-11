@@ -18,7 +18,8 @@ namespace Workshop.Core.Interfaces
         /// Dodaje nowy rekord wizyty do bazy danych.
         /// </summary>
         /// <param name="record">Obiekt rekordu wizyty, który ma zostać dodany</param>
-        Task AddRecordAsync(Record record);
+        /// <param name="userId">Identyfikator użytkownika, który będzie zapisany do tej wizyty</param>
+        Task AddRecordAsync(Record record, int userId);
 
         /// <summary>
         /// Aktualizuje istniejący rekord wizyty.
@@ -29,8 +30,9 @@ namespace Workshop.Core.Interfaces
         /// <summary>
         /// Usuwa rekord wizyty na podstawie jego identyfikatora.
         /// </summary>
-        /// <param name="id">Identyfikator rekordu wizyty, który ma zostać usunięty</param>
-        Task DeleteRecordAsync(int id);
+        /// <param name="recordId">Identyfikator rekordu wizyty, który ma zostać usunięty</param>
+        /// <param name="userId">Identyfikator użytkownika, który jest zapisany do tej wizyty</param>
+        Task DeleteRecordAsync(int recordId, int userId);
 
         /// <summary>
         /// Pobiera listę rekordów wizyt powiązanych z użytkownikiem na podstawie jego identyfikatora.

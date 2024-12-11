@@ -49,6 +49,7 @@ namespace Workshop.Core.Interfaces
         /// Usuwa pojazd przypisany do użytkownika na podstawie jego identyfikatora.
         /// </summary>
         /// <param name="vehicleId">Identyfikator pojazdu, który ma zostać usunięty.</param>
-        Task DeleteVehicleAsync(int vehicleId);
+        /// <param name="userId">Identyfikator użytkownika, którego to pojazd.</param>
+        Task DeleteVehicleAsync(int vehicleId, int userId);
     }
 }

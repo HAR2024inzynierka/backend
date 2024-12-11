@@ -13,21 +13,24 @@ namespace Workshop.Controllers
     [ApiController]
     [Route("api/[controller]")]
     [Authorize]
-    [ServiceFilter(typeof(AuthorizeUserFilter))]
+    //[ServiceFilter(typeof(AuthorizeUserFilter))]
     public class UserController : ControllerBase
     {
         private readonly IUserService _userService;
         private readonly IRecordService _recordService;
+        private readonly ITokenService _tokenService;
 
         /// <summary>
         /// Konstruktor kontrolera, który inicjalizuje serwis użytkowników i rekordów.
         /// </summary>
         /// <param name="userService">Serwis użytkowników.</param>
         /// <param name="recordService">Serwis rekordów.</param>
-        public UserController(IUserService userService, IRecordService recordService)
+        /// <param name="tokenService">Serwis tokenów.</param>
+        public UserController(IUserService userService, IRecordService recordService, ITokenService tokenService)
         {
             _userService = userService;
             _recordService = recordService;
+            _tokenService = tokenService;
         }
 
         /// <summary>
@@ -52,11 +55,11 @@ namespace Workshop.Controllers
         /// <summary>
         /// Pobiera wszystkie pojazdy przypisane do użytkownika.
         /// </summary>
-        /// <param name="userId">Identyfikator użytkownika.</param>
         /// <returns>Lista pojazdów przypisanych do użytkownika.</returns>
-        [HttpGet("{userId}/vehicles")]
-        public async Task<IActionResult> GetAllVehicles(int userId)
+        [HttpGet("vehicles")]
+        public async Task<IActionResult> GetAllVehicles()
         {
+            var userId = _tokenService.GetUserIdFromToken(HttpContext);
             var vehicles = await _userService.GetAllVehiclesAsync(userId);
             return Ok(vehicles);
         }
@@ -64,11 +67,10 @@ namespace Workshop.Controllers
         /// <summary>
         /// Aktualizuje dane użytkownika.
         /// </summary>
-        /// <param name="userId">Identyfikator użytkownika do zaktualizowania.</param>
         /// <param name="updateUserDto">Nowe dane użytkownika.</param>
         /// <returns>Status operacji (sukces lub błąd).</returns>
-        [HttpPut("{userId}")]
-        public async Task<IActionResult> UpdateUser(int userId, [FromBody] UpdateUserDto updateUserDto)
+        [HttpPut]
+        public async Task<IActionResult> UpdateUser([FromBody] UpdateUserDto updateUserDto)
         {
             // Sprawdzanie poprawności danych wejściowych
             if (!ModelState.IsValid)
@@ -78,6 +80,8 @@ namespace Workshop.Controllers
 
             try
             {
+                var userId = _tokenService.GetUserIdFromToken(HttpContext);
+                
                 // Tworzenie nowego obiektu User z danych DTO
                 var user = new User
                 {
@@ -98,13 +102,13 @@ namespace Workshop.Controllers
         /// <summary>
         /// Usuwa użytkownika na podstawie jego identyfikatora.
         /// </summary>
-        /// <param name="userId">Identyfikator użytkownika do usunięcia.</param>
         /// <returns>Status operacji (sukces lub błąd).</returns>
-        [HttpDelete("{userId}")]
-        public async Task<IActionResult> DeleteUser(int userId)
+        [HttpDelete]
+        public async Task<IActionResult> DeleteUser()
         {
             try
             {
+                var userId = _tokenService.GetUserIdFromToken(HttpContext);
                 await _userService.DeleteUserAsync(userId);
                 return Ok();
             }
@@ -117,11 +121,10 @@ namespace Workshop.Controllers
         /// <summary>
         /// Dodaje nowy pojazd do użytkownika.
         /// </summary>
-        /// <param name="userId">Identyfikator użytkownika.</param>
         /// <param name="vehicleDto">Dane pojazdu do dodania.</param>
         /// <returns>Status operacji (sukces lub błąd).</returns>
-        [HttpPost("{userId}/vehicle")]
-        public async Task<IActionResult> AddVehicle(int userId, [FromBody] VehicleDto vehicleDto)
+        [HttpPost("vehicle")]
+        public async Task<IActionResult> AddVehicle([FromBody] VehicleDto vehicleDto)
         {
             // Sprawdzanie poprawności danych wejściowych
             if (!ModelState.IsValid)
@@ -131,6 +134,8 @@ namespace Workshop.Controllers
 
             try
             {
+                var userId = _tokenService.GetUserIdFromToken(HttpContext);
+
                 // Tworzenie nowego obiektu Vehicle z danych DTO
                 var vehicle = new Vehicle
                 {
@@ -158,7 +163,7 @@ namespace Workshop.Controllers
         /// <param name="vehicleId">Identyfikator pojazdu.</param>
         /// <param name="vehicleDto">Nowe dane pojazdu.</param>
         /// <returns>Status operacji (sukces lub błąd).</returns>
-        [HttpPut("{userId}/vehicle/{vehicleId}")]
+        [HttpPut("vehicle/{vehicleId}")]
         public async Task<IActionResult> UpdateVehicle(int vehicleId, [FromBody] VehicleDto vehicleDto)
         {
             // Sprawdzanie poprawności danych wejściowych
@@ -178,7 +183,8 @@ namespace Workshop.Controllers
                     Capacity = vehicleDto.Capacity,
                     Power = vehicleDto.Power,
                     VIN = vehicleDto.VIN,
-                    ProductionYear = vehicleDto.ProductionYear
+                    ProductionYear = vehicleDto.ProductionYear,
+                    UserId = _tokenService.GetUserIdFromToken(HttpContext)
                 };
                 await _userService.UpdateVehicleAsync(vehicle);
                 return Ok();
@@ -194,12 +200,13 @@ namespace Workshop.Controllers
         /// </summary>
         /// <param name="vehicleId">Identyfikator pojazdu do usunięcia.</param>
         /// <returns>Status operacji (sukces lub błąd).</returns>
-        [HttpDelete("{userId}/vehicle/{vehicleId}")]
+        [HttpDelete("vehicle/{vehicleId}")]
         public async Task<IActionResult> DeleteVehicle(int vehicleId)
         {
             try
             {
-				await _userService.DeleteVehicleAsync(vehicleId);
+                var userId = _tokenService.GetUserIdFromToken(HttpContext);
+				await _userService.DeleteVehicleAsync(vehicleId, userId);
 				return Ok();
 			}
             catch (Exception ex)
@@ -212,11 +219,11 @@ namespace Workshop.Controllers
         /// <summary>
         /// Pobiera rekordy warsztatowe przypisane do użytkownika.
         /// </summary>
-        /// <param name="userId">Identyfikator użytkownika.</param>
         /// <returns>Lista rekordów warsztatowych przypisanych do użytkownika.</returns>
-        [HttpGet("{userId}/records")]
-        public async Task<IActionResult> GetUserRecords(int userId)
+        [HttpGet("records")]
+        public async Task<IActionResult> GetUserRecords()
         {
+            var userId = _tokenService.GetUserIdFromToken(HttpContext);
             var records = await _recordService.GetRecordsByUserIdAsync(userId);
             return Ok(records);
         }
@@ -226,11 +233,29 @@ namespace Workshop.Controllers
         /// </summary>
         /// <param name="recordId">Identyfikator rekordu do usunięcia.</param>
         /// <returns>Status operacji (sukces lub błąd).</returns>
-        [HttpDelete("{userId}/records/{recordId}")]
+        [HttpDelete("records/{recordId}")]
         public async Task<IActionResult> DeleteRecord(int recordId)
         {
-            await _recordService.DeleteRecordAsync(recordId);
+            var userId = _tokenService.GetUserIdFromToken(HttpContext);
+            await _recordService.DeleteRecordAsync(recordId, userId);
             return Ok();
+        }
+
+
+        //mozhno udalit esli poluchitsja vinesti getUserIdFromToken v pole kontrollera
+        [HttpGet("user-id-from-token/{userId}")]
+        public IActionResult GetUserIdFromToken()
+        {
+            try
+            {
+                var userIdfromToken = _tokenService.GetUserIdFromToken(HttpContext);
+                return Ok(userIdfromToken);
+            }
+            catch(Exception ex)
+            {
+                return BadRequest(new { message = ex.Message });
+            }
+            
         }
     }
 }

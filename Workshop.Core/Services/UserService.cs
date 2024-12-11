@@ -92,6 +92,11 @@ namespace Workshop.Core.Services
                 throw new Exception("Vehicle not found");
             }
 
+            if(updateVehicle.UserId != vehicle.UserId)
+            {
+                throw new Exception("UserId of the update request does not match the UserId of the vehicle.");
+            }
+
             // Aktualizuje dane pojazdu
             vehicle.Brand = updateVehicle.Brand;
             vehicle.Model = updateVehicle.Model;
@@ -104,7 +109,7 @@ namespace Workshop.Core.Services
             await _vehicleRepository.UpdateAsync(vehicle);
         }
 
-        public async Task DeleteVehicleAsync(int vehicleId)
+        public async Task DeleteVehicleAsync(int vehicleId, int userId)
         {
             var vehicle  = await _vehicleRepository.GetVehicleByIdAsync(vehicleId);
 
@@ -113,6 +118,12 @@ namespace Workshop.Core.Services
             {
                 throw new Exception("Vehicle not found");
             }
+
+            if(vehicle.UserId != userId)
+            {
+                throw new Exception("UserId of the delete request does not match the UserId of the vehicle.");
+            }
+
             await _vehicleRepository.DeleteAsync(vehicle);
         }
 

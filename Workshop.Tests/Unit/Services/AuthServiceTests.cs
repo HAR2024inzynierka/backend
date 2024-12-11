@@ -11,18 +11,18 @@ namespace Workshop.Tests.Unit.Services
     public class AuthServiceTests
     {
         private readonly Mock<IUserRepository> _userRepositoryMock;
-        private readonly Mock<IGenerateJwtTokenService> _generateJwtTokenServiceMock;
+        private readonly Mock<ITokenService> _tokenServiceMock;
         private readonly Mock<IPasswordHasherService> _passwordHasherServiceMock;
         private readonly AuthService _authService;
 
         public AuthServiceTests()
         {
             _userRepositoryMock = new Mock<IUserRepository>();
-            _generateJwtTokenServiceMock = new Mock<IGenerateJwtTokenService>();
+            _tokenServiceMock = new Mock<ITokenService>();
             _passwordHasherServiceMock = new Mock<IPasswordHasherService>();
             _authService = new AuthService(
                 _userRepositoryMock.Object,
-                _generateJwtTokenServiceMock.Object,
+                _tokenServiceMock.Object,
                 _passwordHasherServiceMock.Object
             );
         }
@@ -43,7 +43,7 @@ namespace Workshop.Tests.Unit.Services
             Assert.Equal("Invalid email or password", exception.Message);
 
             _passwordHasherServiceMock.Verify(service => service.VerifyHashedPassword(hashedPassword, password), Times.Never);
-            _generateJwtTokenServiceMock.Verify(service => service.GenerateJwtToken(It.IsAny<User>()), Times.Never);
+            _tokenServiceMock.Verify(service => service.GenerateJwtToken(It.IsAny<User>()), Times.Never);
         }
 
         [Fact]
@@ -69,7 +69,7 @@ namespace Workshop.Tests.Unit.Services
 
             Assert.Equal("Invalid email or password", exception.Message);
 
-            _generateJwtTokenServiceMock.Verify(service => service.GenerateJwtToken(user), Times.Never);
+            _tokenServiceMock.Verify(service => service.GenerateJwtToken(user), Times.Never);
         }
 
         [Fact]
@@ -91,7 +91,7 @@ namespace Workshop.Tests.Unit.Services
             _passwordHasherServiceMock
                 .Setup(service => service.VerifyHashedPassword(user.PasswordHash, password))
                 .Returns(PasswordVerificationResult.Success);
-            _generateJwtTokenServiceMock
+            _tokenServiceMock
                 .Setup(service => service.GenerateJwtToken(user))
                 .Returns(jwtToken);
 
@@ -101,7 +101,7 @@ namespace Workshop.Tests.Unit.Services
 
             _userRepositoryMock.Verify(repo =>  repo.GetByEmailAsync(email), Times.Once());
             _passwordHasherServiceMock.Verify(service => service.VerifyHashedPassword(user.PasswordHash, password), Times.Once);
-            _generateJwtTokenServiceMock.Verify(service => service.GenerateJwtToken(user), Times.Once);
+            _tokenServiceMock.Verify(service => service.GenerateJwtToken(user), Times.Once);
         }
     }
 }

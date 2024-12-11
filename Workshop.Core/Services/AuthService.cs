@@ -16,19 +16,19 @@ namespace Workshop.Core.Services
     public class AuthService : IAuthService
     {
         private readonly IUserRepository _userRepository;
-        private readonly IGenerateJwtTokenService _generateJwtTokenService;
+        private readonly ITokenService _tokenService;
         private readonly IPasswordHasherService _passwordHasherService;
 
         /// <summary>
         /// Konstruktor usługi autoryzacji.
         /// </summary>
         /// <param name="userRepository">Repozytorium użytkowników.</param>
-        /// <param name="generateJwtTokenService">Serwis odpowiedzialny za generowanie tokenów.</param>
+        /// <param name="tokenService">Serwis odpowiedzialny za generowanie tokenów.</param>
         /// <param name="passwordHasherService">Usługa do weryfikacji haseł użytkowników.</param>
-        public AuthService(IUserRepository userRepository, IGenerateJwtTokenService generateJwtTokenService, IPasswordHasherService passwordHasherService)
+        public AuthService(IUserRepository userRepository, ITokenService tokenService, IPasswordHasherService passwordHasherService)
         {
             _userRepository = userRepository;
-            _generateJwtTokenService = generateJwtTokenService;
+            _tokenService = tokenService;
             _passwordHasherService = passwordHasherService;
         }
 
@@ -45,7 +45,7 @@ namespace Workshop.Core.Services
                 throw new Exception("Invalid email or password");
             }
 
-            return _generateJwtTokenService.GenerateJwtToken(user);
+            return _tokenService.GenerateJwtToken(user);
         }
     }
 }

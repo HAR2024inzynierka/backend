@@ -10,18 +10,18 @@ namespace Workshop.Tests.Unit.Services
     public class RegisterServiceTests
     {
         private readonly Mock<IUserRepository> _userRepositoryMock;
-        private readonly Mock<IGenerateJwtTokenService> _generateJwtTokenServiceMock;
+        private readonly Mock<ITokenService> _tokenServiceMock;
         private readonly Mock<IPasswordHasherService> _passwordHasherServiceMock;
         private readonly IRegisterService _registerService;
 
         public RegisterServiceTests()
         {
             _userRepositoryMock = new Mock<IUserRepository>();
-            _generateJwtTokenServiceMock = new Mock<IGenerateJwtTokenService>();
+            _tokenServiceMock = new Mock<ITokenService>();
             _passwordHasherServiceMock = new Mock<IPasswordHasherService>();
             _registerService = new RegisterService(
                 _userRepositoryMock.Object,
-                _generateJwtTokenServiceMock.Object,
+                _tokenServiceMock.Object,
                 _passwordHasherServiceMock.Object
             );
         }
@@ -59,7 +59,7 @@ namespace Workshop.Tests.Unit.Services
             _userRepositoryMock
                 .Setup(repo => repo.AddAsync(It.IsAny<User>()))
                 .Returns(Task.CompletedTask);
-            _generateJwtTokenServiceMock
+            _tokenServiceMock
                 .Setup(service => service.GenerateJwtToken(It.IsAny<User>()))
                 .Returns(jwtToken);
 
@@ -70,7 +70,7 @@ namespace Workshop.Tests.Unit.Services
             _userRepositoryMock.Verify(repo => repo.EmailExistsAsync(email), Times.Once);
             _passwordHasherServiceMock.Verify(service => service.HashPassword(password), Times.Once);
             _userRepositoryMock.Verify(repo => repo.AddAsync(It.IsAny<User>()), Times.Once);
-            _generateJwtTokenServiceMock.Verify(service => service.GenerateJwtToken(It.IsAny<User>()), Times.Once);
+            _tokenServiceMock.Verify(service => service.GenerateJwtToken(It.IsAny<User>()), Times.Once);
         }
     }
 }

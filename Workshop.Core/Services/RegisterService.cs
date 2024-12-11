@@ -10,19 +10,19 @@ namespace Workshop.Core.Services
     public class RegisterService : IRegisterService
     {
         private readonly IUserRepository _userRepository;
-        private readonly IGenerateJwtTokenService _generateJwtTokenService;
+        private readonly ITokenService _tokenService;
         private readonly IPasswordHasherService _passwordHasherService;
 
         /// <summary>
         /// Konstruktor serwisu, który przyjmuje zależności.
         /// </summary>
         /// <param name="userRepository">Repozytorium użytkowników, używane do dodawania nowych użytkowników i sprawdzania istniejących.</param>
-        /// <param name="generateJwtTokenService">Serwis odpowiedzialny za generowanie tokenów.</param>
+        /// <param name="tokenService">Serwis odpowiedzialny za generowanie tokenów.</param>
         /// <param name="passwordHasherService">Serwis odpowiedzialny za haszowanie haseł użytkowników.</param>
-        public RegisterService(IUserRepository userRepository, IGenerateJwtTokenService generateJwtTokenService, IPasswordHasherService passwordHasherService)
+        public RegisterService(IUserRepository userRepository, ITokenService tokenService, IPasswordHasherService passwordHasherService)
         {
             _userRepository = userRepository;
-            _generateJwtTokenService = generateJwtTokenService;
+            _tokenService = tokenService;
             _passwordHasherService = passwordHasherService;
         }
 
@@ -43,7 +43,7 @@ namespace Workshop.Core.Services
             };
 
             await _userRepository.AddAsync(user);
-            return _generateJwtTokenService.GenerateJwtToken(user);
+            return _tokenService.GenerateJwtToken(user);
         }
     }
 }

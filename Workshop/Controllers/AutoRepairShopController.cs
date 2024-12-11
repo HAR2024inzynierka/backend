@@ -13,22 +13,26 @@ namespace Workshop.Controllers
 	public class AutoRepairShopController : ControllerBase
 	{
 		private readonly IAutoRepairShopService _autoRepairShopService;
-		private readonly ITermService _termService;
+		private readonly ITokenService _tokenService;
+        private readonly ITermService _termService;
 		private readonly IFavourService _favourService;
 		private readonly IRecordService _recordService;
         private readonly IPostService _postService;
+
 
         /// <summary>
         /// Konstruktor kontrolera, który inicjalizuje zależności serwisów.
         /// </summary>
         /// <param name="autoRepairShopService">Serwis odpowiedzialny za operacje na warsztatach.</param>
+        /// <param name="tokenService">Serwis odpowiedzialny za operacje z tokenami.</param>
         /// <param name="termService">Serwis odpowiedzialny za operacje na terminach.</param>
         /// <param name="favourService">Serwis odpowiedzialny za operacje na usługach.</param>
         /// <param name="recordService">Serwis odpowiedzialny za operacje na rekordach.</param>
-        /// /// <param name="postService">Serwis odpowiedzialny za operacje na postach.</param>
-        public AutoRepairShopController(IAutoRepairShopService autoRepairShopService, ITermService termService, IFavourService favourService, IRecordService recordService, IPostService postService) 
+        /// <param name="postService">Serwis odpowiedzialny za operacje na postach.</param>
+        public AutoRepairShopController(IAutoRepairShopService autoRepairShopService,ITokenService tokenService, ITermService termService, IFavourService favourService, IRecordService recordService, IPostService postService) 
 		{
 			_autoRepairShopService = autoRepairShopService;
+            _tokenService = tokenService;
 			_termService = termService;
 			_favourService = favourService;
 			_recordService = recordService;
@@ -105,6 +109,8 @@ namespace Workshop.Controllers
 
 			try
 			{
+                var userId = _tokenService.GetUserIdFromToken(HttpContext);
+
                 // Tworzymy nowy obiekt rekordu na podstawie danych z DTO.
                 var record = new Record
 				{
@@ -114,7 +120,7 @@ namespace Workshop.Controllers
                     RecordDate = DateTime.Now
                 };
 
-				await _recordService.AddRecordAsync(record);
+				await _recordService.AddRecordAsync(record, userId);
 				return Ok("Record added successfully.");
 			}
 			catch (Exception ex)

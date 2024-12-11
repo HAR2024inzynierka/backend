@@ -1,5 +1,7 @@
-﻿using Workshop.Core.Entities;
+﻿using System.Runtime.CompilerServices;
+using Workshop.Core.Entities;
 using Workshop.Core.Interfaces;
+using Workshop.Infrastructure.Repositories;
 
 namespace Workshop.Core.Services
 {
@@ -9,14 +11,17 @@ namespace Workshop.Core.Services
     public class RecordService : IRecordService
 	{
 		private readonly IRecordRepository _recordRepository;
+        private readonly IVehicleRepository _vehicleRepository;
 
         /// <summary>
         /// Konstruktor serwisu RecordService.
         /// </summary>
         /// <param name="recordRepository">Repozytorium operujące na danych rekordów</param>
-        public RecordService(IRecordRepository recordRepository)
+        /// <param name="vehicleRepository">Repozytorium operujące na danych pojazdów</param>
+        public RecordService(IRecordRepository recordRepository, IVehicleRepository vehicleRepository)
 		{
 			_recordRepository = recordRepository;
+            _vehicleRepository = vehicleRepository;
 		}
 
 		public async Task<Record> GetRecordByIdAsync(int id)
@@ -32,8 +37,15 @@ namespace Workshop.Core.Services
             return record;
 		}
 
-		public async Task AddRecordAsync(Record record)
+		public async Task AddRecordAsync(Record record, int userId)
 		{
+            var vehicle = await _vehicleRepository.GetVehicleByIdAsync(record.VehicleId) ?? throw new Exception("Nonexistent vehicle");
+            
+            if (vehicle.UserId != userId)
+            {
+                throw new Exception("UserId of the post request does not match the UserId of the vehicle for this record.");
+            }
+
 			await _recordRepository.AddRecordAsync(record);
 		}
 
@@ -57,7 +69,7 @@ namespace Workshop.Core.Services
             await _recordRepository.UpdateRecordAsync(record);
         }
 
-        public async Task DeleteRecordAsync(int recordId)
+        public async Task DeleteRecordAsync(int recordId, int userId)
         {
             var record = await _recordRepository.GetRecordByIdAsync(recordId);
 
@@ -65,6 +77,11 @@ namespace Workshop.Core.Services
             if (record == null)
             {
                 throw new Exception("Record not found");
+            }
+
+            if (userId != record.Vehicle.UserId)
+            {
+                throw new Exception("UserId of the delete request does not match the UserId of the vehicle for this record.");
             }
 
             await _recordRepository.DeleteRecordAsync(record);
