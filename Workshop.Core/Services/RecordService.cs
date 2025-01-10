@@ -1,5 +1,4 @@
-﻿using System.Runtime.CompilerServices;
-using Workshop.Core.Entities;
+﻿using Workshop.Core.Entities;
 using Workshop.Core.Interfaces;
 using Workshop.Infrastructure.Repositories;
 

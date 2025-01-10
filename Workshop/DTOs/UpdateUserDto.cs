@@ -27,8 +27,7 @@ namespace Workshop.DTOs
         /// Numer telefonu użytkownika, który ma być zaktualizowany.
         /// Pole jest obowiązkowe i musi zawierać prawidłowy format numeru telefonu.
         /// </summary>
-        [Required(ErrorMessage = "Phone Number is required.")]
         [Phone(ErrorMessage = "Invalid phone format")]
-        public required string PhoneNumber { get; set; }
+        public string? PhoneNumber { get; set; }
     }
 }
