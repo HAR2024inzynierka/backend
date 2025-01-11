@@ -94,10 +94,30 @@ namespace Workshop.Core.Services
                 throw new Exception("Record not found");
             }
 
-            if (userId != record.Vehicle.UserId)
+            var vehicle = await _vehicleRepository.GetVehicleByIdAsync(record.VehicleId);
+            
+            if (vehicle == null)
+            {
+                throw new Exception("Vehicle from this record not found.");
+            }
+
+            if (userId != vehicle.UserId)
             {
                 throw new Exception("UserId of the delete request does not match the UserId of the vehicle for this record.");
             }
+
+            var term = await _termService.GetTermByIdAsync(record.TermId);
+
+            var updateTerm = new Term
+            {
+                Id = term.Id,
+                AutoServiceId = term.AutoServiceId,
+                StartDate = term.StartDate,
+                EndDate = term.EndDate,
+                Availability = true
+            };
+
+            await _termService.UpdateTermAsync(updateTerm);
 
             await _recordRepository.DeleteRecordAsync(record);
         }
