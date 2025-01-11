@@ -49,6 +49,7 @@ namespace Workshop.Infrastructure.Repositories
 		{
 			return await _context.Terms
 				.Where(t => t.AutoServiceId == autoserviceId) // Filtruje po ID warsztatu
+				.Where(t => t.Availability == true)
                 .ToListAsync();
 		}
 	}

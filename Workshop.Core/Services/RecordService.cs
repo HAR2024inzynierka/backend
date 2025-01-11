@@ -11,16 +11,19 @@ namespace Workshop.Core.Services
 	{
 		private readonly IRecordRepository _recordRepository;
         private readonly IVehicleRepository _vehicleRepository;
+        private readonly ITermService _termService;
 
         /// <summary>
         /// Konstruktor serwisu RecordService.
         /// </summary>
         /// <param name="recordRepository">Repozytorium operujące na danych rekordów</param>
         /// <param name="vehicleRepository">Repozytorium operujące na danych pojazdów</param>
-        public RecordService(IRecordRepository recordRepository, IVehicleRepository vehicleRepository)
+        /// <param name="termService">Serwis operująca na danych terminów</param>
+        public RecordService(IRecordRepository recordRepository, IVehicleRepository vehicleRepository, ITermService termService)
 		{
 			_recordRepository = recordRepository;
             _vehicleRepository = vehicleRepository;
+            _termService = termService;
 		}
 
 		public async Task<Record> GetRecordByIdAsync(int id)
@@ -45,7 +48,20 @@ namespace Workshop.Core.Services
                 throw new Exception("UserId of the post request does not match the UserId of the vehicle for this record.");
             }
 
-			await _recordRepository.AddRecordAsync(record);
+            var term = await _termService.GetTermByIdAsync(record.TermId);
+
+            var updateTerm = new Term
+            {
+                Id = term.Id,
+                AutoServiceId = term.AutoServiceId,
+                StartDate = term.StartDate,
+                EndDate = term.EndDate,
+                Availability = false
+            };
+
+            await _termService.UpdateTermAsync(updateTerm);
+
+            await _recordRepository.AddRecordAsync(record);
 		}
 
 		public async Task UpdateRecordAsync(Record updateRecord)
