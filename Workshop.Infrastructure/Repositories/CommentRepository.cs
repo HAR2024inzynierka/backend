@@ -31,6 +31,7 @@ namespace Workshop.Infrastructure.Repositories
         public async Task<List<Comment>> GetAllCommentsByPostIdAsync(int postId)
         {
             return await _context.Comments
+                .Include(c => c.User)
                 .Where(c => c.PostId == postId) // Filtruje komentarze po PostId
                 .ToListAsync();
         }

@@ -64,7 +64,14 @@ namespace Workshop.Controllers
         public async Task<IActionResult> GetCommentsForPost(int id)
         {
             var comments = await _postService.GetCommentsByPostIdAsync(id);
-            return Ok(comments);
+            var showCommentDtos = comments.Select(c => new ShowCommentDto
+            {
+                Id = c.Id,
+                Content = c.Content,
+                PostId = c.PostId,
+                Username = c.User.Login
+            });
+            return Ok(showCommentDtos);
         }
 
         [Authorize]

@@ -41,5 +41,7 @@ namespace Workshop.Core.Entities
         /// </summary>
         public DateTime UpdatedAt { get; set; }
 
+        public User User { get; set; }
+
     }
 }
