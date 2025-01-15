@@ -69,6 +69,7 @@ namespace Workshop.Controllers
                 Id = c.Id,
                 Content = c.Content,
                 PostId = c.PostId,
+                UserId = c.UserId,
                 Username = c.User.Login
             });
             return Ok(showCommentDtos);
@@ -131,16 +132,16 @@ namespace Workshop.Controllers
         public async Task<IActionResult> AddLike(int id)
         {
             var userId = _tokenService.GetUserIdFromToken(HttpContext);
-            await _postService.AddLikeAsync(id, userId);
+            await _postService.AddLikeAsync(userId, id);
             return Ok();
         }
 
         [Authorize]
         [HttpDelete("{id}/like")]
-        public async Task<IActionResult> RemoveLike(int id, [FromBody] LikeDto likeDto)
+        public async Task<IActionResult> RemoveLike(int id)
         {
             var userId = _tokenService.GetUserIdFromToken(HttpContext);
-            await _postService.RemoveLikeAsync(id, userId);
+            await _postService.RemoveLikeAsync(userId, id);
             return Ok();
         }
     }
